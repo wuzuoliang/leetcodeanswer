@@ -1,6 +1,9 @@
 package Code
 
-import "testing"
+import (
+	. "github.com/smartystreets/goconvey/convey"
+	"testing"
+)
 
 /**
 The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
@@ -23,15 +26,45 @@ Input: s = "PAYPALISHIRING", numRows = 4
 Output: "PINALSIGYAHRPI"
 Explanation:
 
-P     I    N
-A   L S  I G
+P     I     N
+A   L S   I G
 Y A   H R
 P     I
 */
-//TODO
 func Test_conver(t *testing.T) {
+	Convey("Test_conver", t, func() {
+		Convey("PAYPALISHIRING 3", func() {
+			So(StringShouldEqual(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR"), ShouldBeTrue)
+		})
 
+		Convey("PAYPALISHIRING 4", func() {
+			So(StringShouldEqual(convert("PAYPALISHIRING", 4), "PINALSIGYAHRPI"), ShouldBeTrue)
+		})
+		Convey("A 1", func() {
+			So(StringShouldEqual(convert("A", 1), "A"), ShouldBeTrue)
+		})
+		Convey("AB 1", func() {
+			So(StringShouldEqual(convert("AB", 1), "AB"), ShouldBeTrue)
+		})
+	})
 }
 func convert(s string, numRows int) string {
-	return ""
+	if numRows == 1 {
+		return s
+	}
+	zMax := 2*numRows - 2
+	zMap := make([]string, numRows)
+	for i, v := range s {
+		//vertical
+		if i%zMax >= 0 && i%zMax < numRows {
+			zMap[i%zMax%numRows] = zMap[i%zMax%numRows] + string(v)
+		} else { //Slope
+			zMap[numRows-((i%zMax)+1)%numRows-1] = zMap[numRows-((i%zMax)+1)%numRows-1] + string(v)
+		}
+	}
+	ret := ""
+	for _, vLine := range zMap {
+		ret += vLine
+	}
+	return ret
 }
