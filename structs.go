@@ -16,6 +16,7 @@ func ListNodePrint(l *ListNode) string {
 		ret += fmt.Sprintf("%d->", l.Val)
 		l = l.Next
 	}
+	fmt.Println(ret)
 	return ret
 }
 func CreateNodeList(values []int) *ListNode {
@@ -57,6 +58,20 @@ func IntShouldEqual(actual interface{}, expected ...interface{}) bool {
 func IntSliceShouldEqual(actual interface{}, expected ...interface{}) bool {
 	a := actual.([]int)
 	b := expected[0].([]int)
+	if len(a) == len(b) {
+		for i := range a {
+			if a[i] == b[i] {
+				continue
+			}
+			return false
+		}
+		return true
+	}
+	return false
+}
+func StringSliceShouldEqual(actual interface{}, expected ...interface{}) bool {
+	a := actual.([]string)
+	b := expected[0].([]string)
 	if len(a) == len(b) {
 		for i := range a {
 			if a[i] == b[i] {

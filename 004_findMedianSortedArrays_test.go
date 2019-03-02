@@ -25,7 +25,6 @@ nums2 = [3, 4]
 
 The median is (2 + 3)/2 = 2.5
 */
-//TODO
 func Test_findMedianSortedArrays(t *testing.T) {
 	Convey("Test_findMedianSortedArrays", t, func() {
 		Convey("nums1 = [1, 2],	nums2 = [3,4]", func() {
@@ -113,6 +112,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 		return float64(t[mid])
 	}
 }
+
 /**
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
     len1 := len(nums1)
@@ -156,4 +156,4 @@ func findKth(nums1 []int, len1 int, nums2 []int, len2 int, k int) int {
         return nums1[idx1-1]
     }
 }
- */
+*/

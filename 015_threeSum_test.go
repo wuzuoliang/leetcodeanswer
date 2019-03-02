@@ -34,6 +34,7 @@ func Test_threeSum(t *testing.T) {
 
 }
 
+//TODO
 func threeSum(nums []int) [][]int {
-
+	return [][]int{}
 }
