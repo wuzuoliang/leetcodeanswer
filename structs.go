@@ -83,6 +83,43 @@ func StringSliceShouldEqual(actual interface{}, expected ...interface{}) bool {
 	}
 	return false
 }
+
+func StringSetShouldEqual(actual interface{}, expected ...interface{}) bool {
+	a := actual.([]string)
+	b := expected[0].([]string)
+
+	count := 0
+	for _, va := range a {
+		tEqual := false
+		for _, vb := range b {
+			if va == vb {
+				tEqual = true
+			}
+		}
+		if !tEqual {
+			fmt.Println("actual lack:", va)
+			count++
+		}
+	}
+
+	for _, vb := range b {
+		tEqual := false
+		for _, va := range a {
+			if va == vb {
+				tEqual = true
+			}
+		}
+		if !tEqual {
+			fmt.Println("expected lack:", vb)
+			count++
+		}
+	}
+
+	if count > 0 {
+		return false
+	}
+	return true
+}
 func FloatShouldEqual(actual interface{}, expected ...interface{}) bool {
 	if math.Dim(actual.(float64), expected[0].(float64)) < 0.000001 {
 		return true
