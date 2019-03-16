@@ -36,7 +36,6 @@ func Test_conver(t *testing.T) {
 		Convey("PAYPALISHIRING 3", func() {
 			So(StringShouldEqual(convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR"), ShouldBeTrue)
 		})
-
 		Convey("PAYPALISHIRING 4", func() {
 			So(StringShouldEqual(convert("PAYPALISHIRING", 4), "PINALSIGYAHRPI"), ShouldBeTrue)
 		})

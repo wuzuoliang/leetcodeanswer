@@ -9,6 +9,11 @@ type ListNode struct {
 	Val  int
 	Next *ListNode
 }
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
 
 func ListNodePrint(l *ListNode) string {
 	ret := ""
@@ -83,7 +88,6 @@ func StringSliceShouldEqual(actual interface{}, expected ...interface{}) bool {
 	}
 	return false
 }
-
 func StringSetShouldEqual(actual interface{}, expected ...interface{}) bool {
 	a := actual.([]string)
 	b := expected[0].([]string)
