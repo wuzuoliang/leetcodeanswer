@@ -3,6 +3,7 @@ package Code
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 type ListNode struct {
@@ -63,6 +64,22 @@ func IntShouldEqual(actual interface{}, expected ...interface{}) bool {
 func IntSliceShouldEqual(actual interface{}, expected ...interface{}) bool {
 	a := actual.([]int)
 	b := expected[0].([]int)
+	if len(a) == len(b) {
+		for i := range a {
+			if a[i] == b[i] {
+				continue
+			}
+			return false
+		}
+		return true
+	}
+	return false
+}
+func IntSliceSortShouldEqual(actual interface{}, expected ...interface{}) bool {
+	a := actual.([]int)
+	b := expected[0].([]int)
+	sort.Ints(a)
+	sort.Ints(b)
 	if len(a) == len(b) {
 		for i := range a {
 			if a[i] == b[i] {

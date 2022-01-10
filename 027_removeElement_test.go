@@ -1,8 +1,10 @@
 package Code
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
+	"fmt"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 /**
@@ -44,15 +46,24 @@ int len = removeElement(nums, val);
 for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
+
+题目27：移除元素
+给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+
+元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
 */
 
 func Test_removeElement(t *testing.T) {
 	Convey("Test_removeElement", t, func() {
 		Convey("Given nums = [0,1,2,2,3,0,4,2], val = 2", func() {
 			So(IntShouldEqual(removeElement([]int{0, 1, 2, 2, 3, 0, 4, 2}, 2), 5), ShouldBeTrue)
+			So(IntShouldEqual(removeDuplicates27([]int{0, 1, 2, 2, 3, 0, 4, 2}), 7), ShouldBeTrue)
 		})
 	})
 }
+
+//
 func removeElement(nums []int, val int) int {
 	pre, index := -1, 0
 	for index < len(nums) {
@@ -63,4 +74,16 @@ func removeElement(nums []int, val int) int {
 		index++
 	}
 	return pre + 1
+}
+
+// 原地去重删除重复元素
+func removeDuplicates27(nums []int) int {
+    for i := 0; i+1 < len(nums);{
+        if nums[i] == nums[i+1]{
+            nums = append(nums[:i],nums[i+1:]...)
+        }else{
+            i++
+        }
+    }
+    return len(nums)
 }
