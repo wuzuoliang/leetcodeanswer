@@ -64,17 +64,17 @@ func longestCommonPrefix_1(strs []string) string {
 如果strings.Index(x1,x) != 0, 则截取掉基准元素x的最后一个元素，再次和x1进行比较，直至满足string.Index(x1,x) == 0，此时截取后的x为x和x1的最长公共前缀。（如flight和flow进行比较，依次截取出flow-flo-fl，直到fl被截取出，此时fl为flight和flow的最长公共前缀）
 */
 func longestCommonPrefix_2(strs []string) string {
-    if len(strs) < 1 {
-        return ""
-    }
-    prefix := strs[0]
-    for _,k := range strs {
-        for strings.Index(k,prefix) != 0 {
-            if len(prefix) == 0 {
-                return ""
-            }
-            prefix = prefix[:len(prefix) - 1]
-        }
-    }
-    return prefix
+	if len(strs) < 1 {
+		return ""
+	}
+	prefix := strs[0]
+	for _, k := range strs {
+		for strings.Index(k, prefix) != 0 {
+			if len(prefix) == 0 {
+				return ""
+			}
+			prefix = prefix[:len(prefix)-1]
+		}
+	}
+	return prefix
 }

@@ -36,20 +36,20 @@ import (
 
 要求使用空间复杂度为 O(1) 的 原地 算法。
 */
-func TestRotateArray(t *testing.T){
+func TestRotateArray(t *testing.T) {
 	convey.Convey("TestRotateArray", t, func() {
 
 		convey.Convey("1", func() {
-			convey.So(IntSliceShouldEqual(rotateArray1([]int{1,2,3,4,5,6,7},3), []int{5,6,7,1,2,3,4}), convey.ShouldBeTrue)
+			convey.So(IntSliceShouldEqual(rotateArray1([]int{1, 2, 3, 4, 5, 6, 7}, 3), []int{5, 6, 7, 1, 2, 3, 4}), convey.ShouldBeTrue)
 		})
 
 		convey.Convey("2", func() {
-			convey.So(IntSliceShouldEqual(rotateArray1([]int{4,5,5,9},2), []int{5,9,4,5}), convey.ShouldBeTrue)
+			convey.So(IntSliceShouldEqual(rotateArray1([]int{4, 5, 5, 9}, 2), []int{5, 9, 4, 5}), convey.ShouldBeTrue)
 		})
 	})
 }
 
-func rotateArray1(nums []int, k int) []int{
+func rotateArray1(nums []int, k int) []int {
 	reverse189(nums)
 	reverse189(nums[:k%len(nums)])
 	reverse189(nums[k%len(nums):])

@@ -28,38 +28,38 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestIntersection_of_Two_Arrays_II(t *testing.T){
+func TestIntersection_of_Two_Arrays_II(t *testing.T) {
 	Convey("TestIntersection_of_Two_Arrays_II", t, func() {
 		Convey("1", func() {
-			So(IntSliceSortShouldEqual(intersectionOfTwoArrays2_1([]int{1,2,2,1},[]int{2,2}), []int{2,2}), ShouldBeTrue)
+			So(IntSliceSortShouldEqual(intersectionOfTwoArrays2_1([]int{1, 2, 2, 1}, []int{2, 2}), []int{2, 2}), ShouldBeTrue)
 		})
 		Convey("2", func() {
-			So(IntSliceSortShouldEqual(intersectionOfTwoArrays2_1([]int{4,9,5},[]int{9,4,9,8,4}), []int{4,9}), ShouldBeTrue)
+			So(IntSliceSortShouldEqual(intersectionOfTwoArrays2_1([]int{4, 9, 5}, []int{9, 4, 9, 8, 4}), []int{4, 9}), ShouldBeTrue)
 		})
 
 		Convey("3", func() {
-			So(IntSliceShouldEqual(intersectionOfTwoArrays2_2([]int{4,5,5,9},[]int{4,5,5,5,5,7,8,9}), []int{4,5,5,9}), ShouldBeTrue)
+			So(IntSliceShouldEqual(intersectionOfTwoArrays2_2([]int{4, 5, 5, 9}, []int{4, 5, 5, 5, 5, 7, 8, 9}), []int{4, 5, 5, 9}), ShouldBeTrue)
 		})
 	})
 }
 
 // 我们需找出两个数组的交集元素，同时应与两个数组中出现的次数一致。这样就导致了我们需要知道每个值出现的次数，所以映射关系就成了<元素,出现次数>´´´´
-func intersectionOfTwoArrays2_1(nums1,nums2 []int) []int{
+func intersectionOfTwoArrays2_1(nums1, nums2 []int) []int {
 	m0 := map[int]int{}
-    for _, v := range nums1 {
-        //遍历nums1，初始化map
-        m0[v] += 1
-    }
-    k := 0
-    for _, v := range nums2 {
-        //如果元素相同，将其存入nums2中，并将出现次数减1
-        if m0[v] > 0 {
-            m0[v] -=1
-            nums2[k] = v
-            k++
-        }
-    }
-    return nums2[0:k]
+	for _, v := range nums1 {
+		//遍历nums1，初始化map
+		m0[v] += 1
+	}
+	k := 0
+	for _, v := range nums2 {
+		//如果元素相同，将其存入nums2中，并将出现次数减1
+		if m0[v] > 0 {
+			m0[v] -= 1
+			nums2[k] = v
+			k++
+		}
+	}
+	return nums2[0:k]
 }
 
 /**
