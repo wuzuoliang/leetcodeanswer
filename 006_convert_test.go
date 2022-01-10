@@ -67,3 +67,24 @@ func convert(s string, numRows int) string {
 	}
 	return ret
 }
+
+func convert2(s string, numRows int) string {
+	if numRows == 1 {
+		return s
+	}
+	list := make([]string, numRows)
+	i := 0
+	flag := -1
+	for _, v := range s {
+		list[i] += string(v)
+		if i == 0 || i == numRows-1 {
+			flag *= -1
+		}
+		i += flag
+	}
+	res := ""
+	for _, v := range list {
+		res += v
+	}
+	return res
+}
