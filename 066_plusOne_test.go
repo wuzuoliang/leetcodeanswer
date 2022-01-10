@@ -1,8 +1,9 @@
 package Code
 
 import (
-	"github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	"github.com/smartystreets/goconvey/convey"
 )
 
 /**
@@ -26,6 +27,8 @@ Explanation: The array represents the integer 4321.
 func Test_plusOne(t *testing.T) {
 	convey.Convey("Test_plusOne", t, func() {
 		convey.So(IntSliceShouldEqual(plusOne([]int{1, 2, 3}), []int{1, 2, 4}), convey.ShouldBeTrue)
+		convey.So(IntSliceShouldEqual(plusOne([]int{1, 9, 9}), []int{2, 0, 0}), convey.ShouldBeTrue)
+
 	})
 }
 func plusOne(digits []int) []int {

@@ -25,25 +25,16 @@ func Test_TwoSum(t *testing.T) {
 		})
 	})
 }
+
 func twoSum(nums []int, target int) []int {
-	n := len(nums)
-
-	if n == 0 {
-		return []int{}
-	}
-
+	result := []int{}
 	m := make(map[int]int)
-
-	for i := 0; i < n; i++ {
-		m[nums[i]] = i
-	}
-
-	for i := 0; i < n; i++ {
-		ans := target - nums[i]
-		v, ok := m[ans]
-		if ok && i != v {
-			return []int{i, v}
+	for i, k := range nums {
+		if value, exist := m[target-k]; exist {
+			result = append(result, value)
+			result = append(result, i)
 		}
+		m[k] = i
 	}
-	return []int{}
+	return result
 }
