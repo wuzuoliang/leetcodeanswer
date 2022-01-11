@@ -47,10 +47,8 @@ func robber(houses []int) int {
 		return Max(houses[0], houses[1])
 	}
 	dp[1] = Max(houses[0], houses[1])
-	max := 0
 	for i := 2; i < length; i++ {
-		dp[i] = dp[i-2] + houses[i]
-		max = Max(max, dp[i])
+		dp[i] = Max(dp[i-2]+houses[i], dp[i-1])
 	}
-	return max
+	return dp[length-1]
 }
