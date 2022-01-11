@@ -1,6 +1,10 @@
 package Code
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/smartystreets/goconvey/convey"
+)
 
 /**
 Given an unsorted array of integers, find the length of longest increasing subsequence.
@@ -18,7 +22,15 @@ Follow up: Could you improve it to O(n log n) time complexity?
 */
 
 func TestLongestIncreasingSubsequence(t *testing.T) {
+	convey.Convey("TestLongestIncreasingSubsequence", t, func() {
+		convey.Convey("10,9,2,5,3,7,101,18", func() {
+			convey.So(IntShouldEqual(lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18}), 4), convey.ShouldBeTrue)
+		})
 
+		convey.Convey("1,9,5,9,3", func() {
+			convey.So(IntShouldEqual(lengthOfLIS([]int{1, 9, 5, 9, 3}), 3), convey.ShouldBeTrue)
+		})
+	})
 }
 
 /**
@@ -38,6 +50,7 @@ nums[i] > nums[p]
 ....
 
 最后，我们只需要找到dp数组中的最大值，就是我们要找的答案。
+复杂度分析： 时间复杂度O(n^2),空间复杂度O(n)
 */
 func lengthOfLIS(nums []int) int {
 	if len(nums) < 1 {
