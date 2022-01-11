@@ -36,8 +36,8 @@ func maxSubArray(nums []int) int {
 	result := nums[0]
 	dp[0] = nums[0]
 	for i := 1; i < len(nums); i++ {
-		dp[i] = max(dp[i-1]+nums[i], nums[i])
-		result = max(dp[i], result)
+		dp[i] = Max(dp[i-1]+nums[i], nums[i])
+		result = Max(dp[i], result)
 	}
 	return result
 }
