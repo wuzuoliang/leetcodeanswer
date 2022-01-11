@@ -1,8 +1,9 @@
 package Code
 
 import (
-	"github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	"github.com/smartystreets/goconvey/convey"
 )
 
 /**
@@ -31,22 +32,45 @@ Explanation: There are three ways to climb to the top.
 
 func Test_climbStairs(t *testing.T) {
 	convey.Convey("Test_climbStairs", t, func() {
+		convey.Convey("1", func() {
+			convey.So(IntShouldEqual(climbStairs(1), 1), convey.ShouldBeTrue)
+		})
 		convey.Convey("2", func() {
 			convey.So(IntShouldEqual(climbStairs(2), 2), convey.ShouldBeTrue)
 		})
-
 		convey.Convey("3", func() {
 			convey.So(IntShouldEqual(climbStairs(3), 3), convey.ShouldBeTrue)
+		})
+		convey.Convey("4", func() {
+			convey.So(IntShouldEqual(climbStairs(4), 5), convey.ShouldBeTrue)
+		})
+		convey.Convey("5", func() {
+			convey.So(IntShouldEqual(climbStairs(5), 8), convey.ShouldBeTrue)
+		})
+		convey.Convey("6", func() {
+			convey.So(IntShouldEqual(climbStairs(6), 13), convey.ShouldBeTrue)
 		})
 	})
 }
 
+/**
+跟斐波那契数列非常相似，假设梯子有n层，那么如何爬到第n层呢，因为每次只能爬1或2步，那么爬到第n层的方法要么是从第 n-1 层一步上来的，要不就是从 n-2 层2步上来的，所以递推公式非常容易的就得出了：dp[n] = dp[n-1] + dp[n-2]
+*/
 func climbStairs(n int) int {
-	res := make([]int, n+1)
-	res[0] = 1
-	res[1] = 1
-	for i := 2; i <= n; i++ {
-		res[i] = res[i-1] + res[i-2]
+	a := 1
+	b := 1
+	for n >= 1 {
+		n--
+		b += a
+		a = b - a
 	}
-	return res[n]
+	return a
+
+	// res := make([]int, n+1)
+	// res[0] = 1
+	// res[1] = 1
+	// for i := 2; i <= n; i++ {
+	// 	res[i] = res[i-1] + res[i-2]
+	// }
+	// return res[n]
 }
