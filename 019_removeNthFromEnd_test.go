@@ -1,8 +1,9 @@
 package Code
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 /**
@@ -39,24 +40,19 @@ func Test_removeNthFromEnd(t *testing.T) {
 	})
 }
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	tmpStore := make([]*ListNode, 0)
+	result := &ListNode{}
+	result.Next = head
+	var pre *ListNode
+	cur := result
+	i := 1
 	for head != nil {
-		tmpStore = append(tmpStore, head)
-		head = head.Next
-	}
-
-	if len(tmpStore) < n {
-		return nil
-	} else if len(tmpStore) == 1 {
-		return nil
-	} else {
-		if n == 1 {
-			tmpStore[len(tmpStore)-2].Next = nil
-		} else if len(tmpStore) == n {
-			tmpStore = tmpStore[1:]
-		} else {
-			tmpStore[len(tmpStore)-n-1].Next = tmpStore[len(tmpStore)-n+1]
+		if i >= n {
+			pre = cur
+			cur = cur.Next
 		}
+		head = head.Next
+		i++
 	}
-	return tmpStore[0]
+	pre.Next = pre.Next.Next
+	return result.Next
 }
