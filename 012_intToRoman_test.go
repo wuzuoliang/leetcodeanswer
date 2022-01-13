@@ -1,8 +1,9 @@
 package Code
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 /**
@@ -79,7 +80,7 @@ func Test_intToRoman(t *testing.T) {
 		})
 
 		Convey("[3999]", func() {
-			So(StringShouldEqual(intToRoman(3999), "MMMCMXCIX"), ShouldBeTrue)
+			So(StringShouldEqual(intToRoman2(3999), "MMMCMXCIX"), ShouldBeTrue)
 		})
 	})
 }
@@ -128,4 +129,18 @@ func intToRoman(num int) string {
 		}
 	}
 	return s
+}
+
+func intToRoman2(num int) string {
+	values := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	symbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+	res, i := "", 0
+	for num != 0 {
+		for values[i] > num {
+			i++
+		}
+		num -= values[i]
+		res += symbols[i]
+	}
+	return res
 }
