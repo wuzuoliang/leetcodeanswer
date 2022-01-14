@@ -24,7 +24,7 @@ return its depth = 3.
 func Test_maxDepth(t *testing.T) {
 
 }
-func maxDepth(root *TreeNode) int {
+func MaxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
@@ -32,5 +32,5 @@ func maxDepth(root *TreeNode) int {
 		return 1
 	}
 
-	return 1 + Max(maxDepth(root.Left), maxDepth(root.Right))
+	return 1 + Max(MaxDepth(root.Left), MaxDepth(root.Right))
 }

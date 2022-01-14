@@ -93,17 +93,6 @@ func (c *LRU) Remove(key interface{}) (present bool) {
 	return false
 }
 
-// RemoveOldest removes the oldest item from the cache.
-func (c *LRU) RemoveOldest() (key interface{}, value interface{}, ok bool) {
-	ent := c.evictList.Back()
-	if ent != nil {
-		c.removeElement(ent)
-		kv := ent.Value.(*entry)
-		return kv.key, kv.value, true
-	}
-	return nil, nil, false
-}
-
 // removeOldest removes the oldest item from the cache.
 func (c *LRU) removeOldest() {
 	ent := c.evictList.Back()

@@ -3,7 +3,9 @@ package Code
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"sort"
+	"time"
 )
 
 type ListNode struct {
@@ -37,6 +39,70 @@ func CreateNodeList(values []int) *ListNode {
 	}
 	return head
 }
+
+func CreateTreeRoot(values []int) *TreeNode {
+	if len(values) <= 0 {
+		return nil
+	}
+	root := &TreeNode{
+		Val:   values[0],
+		Left:  nil,
+		Right: nil,
+	}
+
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	for i := 1; i < len(values); i++ {
+		tmp := root
+		if r.Intn(2) == 0 {
+			for {
+				if tmp.Left == nil {
+					tmp.Left = &TreeNode{
+						Val:   values[i],
+						Left:  nil,
+						Right: nil,
+					}
+					break
+				} else {
+					tmp = tmp.Left
+				}
+			}
+		} else {
+			for {
+				if tmp.Right == nil {
+					tmp.Right = &TreeNode{
+						Val:   values[i],
+						Left:  nil,
+						Right: nil,
+					}
+					break
+				} else {
+					tmp = tmp.Right
+				}
+			}
+		}
+	}
+	return root
+}
+
+func TreeNodePrint(tree *TreeNode) {
+	dep := GetTreeMaxDeep(tree)
+	pic := make([][]int, dep)
+	for i := 0; i < dep; i++ {
+		pic[i] = make([]int, dep*3)
+	}
+}
+
+func GetTreeMaxDeep(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+
+	return 1 + Max(GetTreeMaxDeep(root.Left), GetTreeMaxDeep(root.Right))
+}
+
 func Min(a, b int) int {
 	if a > b {
 		return b
