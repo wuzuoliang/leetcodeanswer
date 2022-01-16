@@ -39,28 +39,23 @@ func Test_isBalanced(t *testing.T) {
 }
 
 func isBalanced(root *TreeNode) bool {
-	isValid, _ := check(root)
-	return isValid
+	if root == nil {
+		return true
+	}
+	if !isBalanced(root.Left) || !isBalanced(root.Right) {
+		return false
+	}
+	leftH := maxDepth(root.Left) + 1
+	rightH := maxDepth(root.Right) + 1
+	if Abs(leftH-rightH) > 1 {
+		return false
+	}
+	return true
 }
 
-func check(root *TreeNode) (bool, int) {
+func maxDepth(root *TreeNode) int {
 	if root == nil {
-		return true, 0
+		return 0
 	}
-	leftValid, leftDepth := check(root.Left)
-	if !leftValid {
-		return false, leftDepth + 1
-	}
-	rightValid, rightDepth := check(root.Right)
-	if !rightValid {
-		return false, rightDepth + 1
-	}
-	depth := leftDepth
-	if leftDepth < rightDepth {
-		depth = rightDepth
-	}
-	if diff := leftDepth - rightDepth; diff > 1 || diff < -1 {
-		return false, depth
-	}
-	return true, depth + 1
+	return Max(maxDepth(root.Left), maxDepth(root.Right)) + 1
 }

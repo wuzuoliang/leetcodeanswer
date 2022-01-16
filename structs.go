@@ -115,6 +115,13 @@ func Max(a, b int) int {
 	}
 	return b
 }
+func Abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+
+}
 func StringShouldEqual(actual interface{}, expected ...interface{}) bool {
 	if actual.(string) == expected[0].(string) {
 		return true
