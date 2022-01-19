@@ -23,5 +23,4 @@ func linkListCycle(head *ListNode) bool {
 		head = head.Next // 慢指针，每次走一步
 	}
 	return false
-
 }

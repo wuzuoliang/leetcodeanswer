@@ -2,6 +2,7 @@ package Code
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
+	"math"
 	"testing"
 )
 
@@ -48,26 +49,17 @@ func maxArea(height []int) int {
 
 	// O(n)
 	i, j := 0, len(height)-1
-	area := 0
-
-	for {
-		if i >= j {
-			break
-		}
-
-		if Min(height[i], height[j])*(j-i) > area {
-			area = Min(height[i], height[j]) * (j - i)
-		}
-
-		if height[i] < height[j] {
+	max := float64(0)
+	for i < j {
+		if height[i] <= height[j] {
+			max = math.Max(max, float64(height[i]*(j-i)))
 			i++
 		} else {
+			max = math.Max(max, float64(height[j]*(j-i)))
 			j--
 		}
-
 	}
-
-	return area
+	return int(max)
 }
 
 func calculateAreaRight(height []int, cur, lens int, area *int) {

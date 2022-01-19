@@ -32,6 +32,13 @@ func Test_addTwoNumbers(t *testing.T) {
 			l3 := CreateNodeList([]int{7, 0, 8})
 			So(StringShouldEqual(ListNodePrint(addTwoNumbers(l1, l2)), ListNodePrint(l3)), ShouldBeTrue)
 		})
+
+		Convey("l1[2,4,3], l2[6,4] , l3[3,0,8]", func() {
+			l1 := &ListNode{2, &ListNode{4, &ListNode{3, nil}}}
+			l2 := &ListNode{6, &ListNode{4, nil}}
+			l3 := CreateNodeList([]int{8, 8, 3})
+			So(StringShouldEqual(ListNodePrint(addTwoNumbers(l1, l2)), ListNodePrint(l3)), ShouldBeTrue)
+		})
 	})
 }
 
