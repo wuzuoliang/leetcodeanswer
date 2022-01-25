@@ -320,3 +320,10 @@ func ReverseListKGroup(head *ListNode, k int) *ListNode {
 	a.Next = ReverseListKGroup(b, k)
 	return newHead
 }
+
+type Node struct {
+	Val   int
+	Left  *Node
+	Right *Node
+	Next  *Node
+}
