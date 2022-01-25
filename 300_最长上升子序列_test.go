@@ -19,6 +19,7 @@ Note:
 There may be more than one LIS combination, it is only necessary for you to return the length.
 Your algorithm should run in O(n2) complexity.
 Follow up: Could you improve it to O(n log n) time complexity?
+二分查找解法: https://mp.weixin.qq.com/s/7QFapCuvi-2nkh6gREcR9g
 */
 
 func TestLongestIncreasingSubsequence(t *testing.T) {

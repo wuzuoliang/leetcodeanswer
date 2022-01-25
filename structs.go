@@ -226,3 +226,7 @@ func ListNodeShouldEqual(actual interface{}, expected ...interface{}) bool {
 	}
 	return false
 }
+
+func ThirdMin(a, b, c int) int {
+	return Min(a, Min(b, c))
+}
