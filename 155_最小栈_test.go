@@ -41,31 +41,30 @@ pop、top 和 getMin 操作总是在 非空栈 上调用。
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/min-stack
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- */
+*/
 
-
-func TestMinStack(t *testing.T){
-	convey.Convey("TestMinStack",t, func() {
+func TestMinStack(t *testing.T) {
+	convey.Convey("TestMinStack", t, func() {
 		convey.Convey("[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]", func() {
-			stack:=Constructor155()
+			stack := Constructor155()
 			stack.Push(-2)
 			stack.Push(0)
 			stack.Push(-3)
-			t.Log(stack.GetMin())//-3
+			t.Log(stack.GetMin()) //-3
 			stack.Pop()
-			t.Log(stack.Top())//0
-			t.Log(stack.GetMin())//-2
+			t.Log(stack.Top())    //0
+			t.Log(stack.GetMin()) //-2
 		})
 
 		convey.Convey("[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"top\",\"pop\",\"getMin\"]", func() {
-			stack:=Constructor155()
+			stack := Constructor155()
 			stack.Push(-2)
 			stack.Push(0)
 			stack.Push(-1)
-			t.Log(stack.GetMin())//-2
-			t.Log(stack.Top())//-1
+			t.Log(stack.GetMin()) //-2
+			t.Log(stack.Top())    //-1
 			stack.Pop()
-			t.Log(stack.GetMin())//-2
+			t.Log(stack.GetMin()) //-2
 		})
 	})
 }
@@ -79,52 +78,46 @@ func TestMinStack(t *testing.T){
  * param_4 := obj.GetMin();
  */
 type MinStack struct {
-	data []int
+	data    []int
 	minData []int
-	tail int
+	tail    int
 }
-
 
 func Constructor155() MinStack {
 	return MinStack{
-		data:    make([]int,0),
-		minData: make([]int,0),
-		tail: -1,
+		data:    make([]int, 0),
+		minData: make([]int, 0),
+		tail:    -1,
 	}
 }
 
-
-func (this *MinStack) Push(val int)  {
-	this.data= append(this.data, val)
-	if len(this.minData)==0{
-		this.minData= append(this.minData, 0)
-		this.tail+=1
-	}else if val < this.GetMin(){
-		this.tail+=1
-		this.minData=append(this.minData,this.tail)
-	}else{
-		this.minData=append(this.minData,this.minData[this.tail])
-		this.tail+=1
+func (this *MinStack) Push(val int) {
+	this.data = append(this.data, val)
+	if len(this.minData) == 0 {
+		this.minData = append(this.minData, 0)
+		this.tail += 1
+	} else if val < this.GetMin() {
+		this.tail += 1
+		this.minData = append(this.minData, this.tail)
+	} else {
+		this.minData = append(this.minData, this.minData[this.tail])
+		this.tail += 1
 	}
 }
 
-
-func (this *MinStack) Pop()  {
-	if this.tail<0{
+func (this *MinStack) Pop() {
+	if this.tail < 0 {
 		return
 	}
-	this.minData=this.minData[0:this.tail]
-	this.data=this.data[0:this.tail]
-	this.tail-=1
+	this.minData = this.minData[0:this.tail]
+	this.data = this.data[0:this.tail]
+	this.tail -= 1
 }
-
 
 func (this *MinStack) Top() int {
 	return this.data[this.tail]
 }
 
-
 func (this *MinStack) GetMin() int {
 	return this.data[this.minData[this.tail]]
 }
-

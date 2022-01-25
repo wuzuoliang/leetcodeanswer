@@ -5,7 +5,7 @@ package Code
 
 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
 
- 
+
 
 示例 1：
 
@@ -15,7 +15,7 @@ package Code
 
 输入：[2,2,1,1,1,2,2]
 输出：2
- 
+
 
 进阶：
 
@@ -24,8 +24,7 @@ package Code
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/majority-element
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- */
-
+*/
 
 func majorityElement(nums []int) int {
 	//TODO hash
