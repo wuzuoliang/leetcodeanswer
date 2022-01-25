@@ -230,3 +230,93 @@ func ListNodeShouldEqual(actual interface{}, expected ...interface{}) bool {
 func ThirdMin(a, b, c int) int {
 	return Min(a, Min(b, c))
 }
+
+func ReverseList(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	last := ReverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return last
+}
+
+// 记录翻转后面的节点
+var successNext *ListNode
+
+func ReverseListN(head *ListNode, n int) *ListNode {
+	if n == 1 {
+		successNext = head.Next
+		return head
+	}
+	last := ReverseListN(head.Next, n-1)
+	head.Next.Next = head
+	head.Next = successNext
+	return last
+}
+
+func ReverseBetween(head *ListNode, m, n int) *ListNode {
+	// base case
+	if m == 1 {
+		return ReverseListN(head, n)
+	}
+	// 前进到反转的起点触发 base case
+	head.Next = ReverseBetween(head.Next, m-1, n-1)
+	return head
+}
+
+func ReverseListIter(head *ListNode) *ListNode {
+	var pre, cur, nxt *ListNode
+	pre = nil
+	cur = head
+	nxt = head
+	for cur != nil {
+		nxt = cur.Next
+		// 逐个结点反转
+		cur.Next = pre
+		// 更新指针位置
+		pre = cur
+		cur = nxt
+	}
+	// 返回反转后的头结点
+	return pre
+}
+
+/** 反转区间 [a, b) 的元素，注意是左闭右开 */
+func ReverseListIterNode(a, b *ListNode) *ListNode {
+	var pre, cur, nxt *ListNode
+	pre = nil
+	cur = a
+	nxt = a
+	//  终止的条件改一下就行了
+	for cur != b {
+		nxt = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = nxt
+	}
+	// 返回反转后的头结点
+	return pre
+}
+
+func ReverseListKGroup(head *ListNode, k int) *ListNode {
+	if head == nil {
+		return nil
+	}
+	// 区间 [a, b) 包含 k 个待反转元素
+	var a, b *ListNode
+	a = head
+	b = head
+	for i := 0; i < k; i++ {
+		// 不足 k 个，不需要反转，base case
+		if b == nil {
+			return head
+		}
+		b = b.Next
+	}
+	// 反转前 k 个元素
+	newHead := ReverseListIterNode(a, b)
+	// 递归反转后续链表并连接起来
+	a.Next = ReverseListKGroup(b, k)
+	return newHead
+}
