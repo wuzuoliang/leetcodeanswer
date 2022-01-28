@@ -16,27 +16,27 @@ func TestMinFallingPathSum(t *testing.T) {
 const max = 999999
 const flag = 666666
 
-var dp [][]int
+var dp931 [][]int
 
 func minFallingPathSum(matrix [][]int) int {
 	n := len(matrix)
 	res := max
-	dp = make([][]int, n)
+	dp931 = make([][]int, n)
 	for i := 0; i < n; i++ {
-		dp[i] = make([]int, n)
+		dp931[i] = make([]int, n)
 		for j := 0; j < n; j++ {
 			if i == n-1 {
-				dp[i][j] = matrix[i][j]
+				dp931[i][j] = matrix[i][j]
 			}
 		}
 	}
 	for j := 0; j < n; j++ {
-		res = Min(res, getDp(matrix, n-1, j))
+		res = Min(res, getdp931(matrix, n-1, j))
 	}
 	return res
 }
 
-func getDp(martix [][]int, i int, j int) int {
+func getdp931(martix [][]int, i int, j int) int {
 	n := len(martix)
 	// 1、索引合法性检查
 	if i < 0 || j < 0 || i >= n || j >= n {
@@ -44,14 +44,14 @@ func getDp(martix [][]int, i int, j int) int {
 	}
 	// 2、base case
 	if i == 0 {
-		return dp[0][j]
+		return dp931[0][j]
 	}
 	// 3、查找备忘录，防止重复计算
-	if dp[i][j] != flag {
-		return dp[i][j]
+	if dp931[i][j] != flag {
+		return dp931[i][j]
 	}
 	// 进行状态转移
-	dp[i][j] = dp[i][j] + ThirdMin(getDp(martix, i-1, j), getDp(martix, i-1, j-1), getDp(martix, i-1, j+1))
+	dp931[i][j] = dp931[i][j] + ThirdMin(getdp931(martix, i-1, j), getdp931(martix, i-1, j-1), getdp931(martix, i-1, j+1))
 
-	return dp[i][j]
+	return dp931[i][j]
 }
