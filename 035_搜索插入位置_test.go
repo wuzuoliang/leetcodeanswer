@@ -47,15 +47,17 @@ func Test_searchInsert(t *testing.T) {
 }
 
 func searchInsert(nums []int, target int) int {
-	var ret int
-	for i := range nums {
-		if nums[i] >= target {
-			ret = i
-			break
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := (left + right) / 2
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
 		}
 	}
-	if len(nums) > 0 && nums[0] < target && ret == 0 {
-		ret = len(nums)
-	}
-	return ret
+	return right + 1
 }

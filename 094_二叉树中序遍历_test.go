@@ -1,5 +1,8 @@
 package Code
 
+/**
+https://www.bilibili.com/video/BV1eg411w7gn?p=25
+*/
 func inorderTraversal(root *TreeNode) []int {
 	list := make([]int, 0)
 	if root == nil {

@@ -26,17 +26,17 @@ func Test_lengthOfLastWord(t *testing.T) {
 }
 
 func lengthOfLastWord(s string) int {
-	lens := len(s)
-	length := 0
-	for i := lens - 1; i >= 0; i-- {
-		if length == 0 && string([]byte(s)[i]) == " " {
-			continue
-		}
-		if string([]byte(s)[i]) != " " {
-			length++
-		} else {
-			break
-		}
+	// 从后往前寻找第一个字符
+	idx := len(s) - 1
+	for idx >= 0 && s[idx] == ' ' {
+		idx--
 	}
-	return length
+
+	ans := 0
+	for idx >= 0 && s[idx] != ' ' {
+		ans++
+		idx--
+	}
+
+	return ans
 }

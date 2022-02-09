@@ -34,13 +34,18 @@ func Test_deleteDuplicates(t *testing.T) {
 }
 
 func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
 	current := head
-	for current != nil && current.Next != nil {
+	for current.Next != nil {
 		if current.Next.Val == current.Val {
 			current.Next = current.Next.Next
 		} else {
 			current = current.Next
 		}
 	}
+
 	return head
 }
