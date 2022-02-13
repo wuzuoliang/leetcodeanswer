@@ -39,71 +39,30 @@ import "testing"
 */
 
 func Test148(t *testing.T) {
-	//t.Log(ListNodePrint(sortList(CreateNodeList([]int{1, 5, 2, 3, 4, 6, 78, 8, 4}))))
-	t.Log(ListNodePrint(sortList2(CreateNodeList([]int{1, 3, 2, 4}))))
-	//t.Log(ListNodePrint(sortList(CreateNodeList([]int{-1,5,3,4,0}))))
-	//t.Log(ListNodePrint(sortList(CreateNodeList([]int{}))))
+	t.Log(ListNodePrint(sortList(CreateNodeList([]int{1, 5, 2, 3, 4, 6, 78, 8, 4}))))
+	t.Log(ListNodePrint(sortList(CreateNodeList([]int{1, 3, 2, 4}))))
+	t.Log(ListNodePrint(sortList(CreateNodeList([]int{-1, 5, 3, 4, 0}))))
+	t.Log(ListNodePrint(sortList(CreateNodeList([]int{}))))
+}
+func sortList(head *ListNode) *ListNode {
+	return sort148(head, nil)
 }
 
-func sortList2(head *ListNode) *ListNode {
+func sort148(head, tail *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	if head.Next == nil {
+	if head.Next == tail {
+		head.Next = nil
 		return head
 	}
-
-	// 876 求链表的中间节点
-	mid := middleNode(head)
-	rightHead := mid.Next
-	mid.Next = nil
-
-	left := sortList2(head)
-	right := sortList2(rightHead)
-
-	// 21 合并两个有序链表
-	return mergeTwoLists(left, right)
-}
-
-func sortList(head *ListNode) *ListNode {
-	if head == nil {
-		return head
-	}
-
-	length := 0
-	for node := head; node != nil; node = node.Next {
-		length++
-	}
-
-	dummyHead := &ListNode{Next: head}
-	for subLength := 1; subLength < length; subLength <<= 1 {
-		prev, cur := dummyHead, dummyHead.Next
-		for cur != nil {
-			head1 := cur
-			for i := 1; i < subLength && cur.Next != nil; i++ {
-				cur = cur.Next
-			}
-
-			head2 := cur.Next
-			cur.Next = nil
-			cur = head2
-			for i := 1; i < subLength && cur != nil && cur.Next != nil; i++ {
-				cur = cur.Next
-			}
-
-			var next *ListNode
-			if cur != nil {
-				next = cur.Next
-				cur.Next = nil
-			}
-
-			prev.Next = mergeTwoLists(head1, head2)
-
-			for prev.Next != nil {
-				prev = prev.Next
-			}
-			cur = next
+	slow, fast := head, head
+	for fast != tail {
+		slow = slow.Next
+		fast = fast.Next
+		if fast != tail {
+			fast = fast.Next
 		}
 	}
-	return dummyHead.Next
+	return mergeTwoLists(sort148(head, slow), sort148(slow, tail))
 }
