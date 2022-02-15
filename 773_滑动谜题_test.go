@@ -1,6 +1,7 @@
 package Code
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -9,6 +10,7 @@ func Test773(t *testing.T) {
 	t.Log(slidingPuzzle([][]int{{4, 1, 2}, {5, 0, 3}}))
 }
 
+// 根据当前位置确定的周围可交换的位置
 var neighbors = [6][]int{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}}
 
 func slidingPuzzle(board [][]int) int {
@@ -29,6 +31,7 @@ func slidingPuzzle(board [][]int) int {
 	get := func(status string) (ret []string) {
 		s := []byte(status)
 		x := strings.Index(status, "0")
+		fmt.Println("status", status, "neighbors", neighbors[x])
 		for _, y := range neighbors[x] {
 			s[x], s[y] = s[y], s[x]
 			ret = append(ret, string(s))
