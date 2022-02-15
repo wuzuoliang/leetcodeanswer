@@ -1,5 +1,7 @@
 package Code
 
+import "testing"
+
 /**
 你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' 。每个拨轮可以自由旋转：例如把 '9' 变为 '0'，'0' 变为 '9' 。每次旋转都只能旋转一个拨轮的一位数字。
 
@@ -50,6 +52,70 @@ target 和 deadends[i] 仅由若干位数字组成
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+func Test752(t *testing.T) {
+	t.Log(openLock([]string{"0201", "0101", "0102", "1212", "2002"}, "0202"))                         //6
+	t.Log(openLock([]string{"8888"}, "0009"))                                                         //1
+	t.Log(openLock([]string{"8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888"}, "8888")) //-1
+
+}
+
 func openLock(deadends []string, target string) int {
-	return 0
+	hashDead := make(map[string]struct{})
+	for _, v := range deadends {
+		hashDead[v] = struct{}{}
+	}
+	hashVisited := make(map[string]struct{})
+	hashVisited["0000"] = struct{}{}
+	list := make([]string, 0)
+	list = append(list, "0000")
+	step := 0
+	for len(list) > 0 {
+		listSize := len(list)
+		for l := 0; l < listSize; l++ {
+			front := list[0]
+			list = list[1:]
+			if _, ok := hashDead[front]; ok {
+				continue
+			}
+			if front == target {
+				return step
+			}
+
+			for i := 0; i < 4; i++ {
+				up := moveUp(front, i)
+				if _, ok := hashVisited[up]; !ok {
+					list = append(list, up)
+					hashVisited[up] = struct{}{}
+				}
+
+				down := moveDown(front, i)
+				if _, ok := hashVisited[down]; !ok {
+					list = append(list, down)
+					hashVisited[down] = struct{}{}
+				}
+			}
+		}
+		step++
+	}
+	return -1
+}
+
+func moveUp(src string, idx int) string {
+	b := []byte(src)
+	if b[idx] == '9' {
+		b[idx] = '0'
+	} else {
+		b[idx] = b[idx] + 1
+	}
+	return string(b)
+}
+
+func moveDown(src string, idx int) string {
+	b := []byte(src)
+	if b[idx] == '0' {
+		b[idx] = '9'
+	} else {
+		b[idx] = b[idx] - 1
+	}
+	return string(b)
 }
