@@ -1,6 +1,8 @@
 package Code
 
-import "math"
+import (
+	"testing"
+)
 
 /**
 给定一个数组 prices ，它的第i 个元素prices[i] 表示一支给定股票第 i 天的价格。
@@ -32,11 +34,19 @@ import "math"
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+func Test121(t *testing.T) {
+	t.Log(maxProfit121([]int{1, 2, 3, 5, 6}))    //5
+	t.Log(maxProfit121([]int{7, 1, 5, 3, 6, 4})) //7
+	t.Log(maxProfit121([]int{7, 6, 4, 3, 1}))    //0
+}
+
 func maxProfit121(prices []int) int {
-	buy, sell := math.MaxInt32, math.MinInt32
-	for _, price := range prices {
-		buy = Min(buy, price)
-		sell = Max(sell, price-buy)
+	res := 0
+	for i := 0; i < len(prices)-1; i++ {
+		incr := prices[i+1] - prices[i]
+		if incr > 0 {
+			res += incr
+		}
 	}
-	return sell
+	return res
 }
