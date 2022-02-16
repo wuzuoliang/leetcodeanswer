@@ -1,7 +1,6 @@
 package Code
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/smartystreets/goconvey/convey"
@@ -46,7 +45,7 @@ import (
 func TestBestTimeToBuyAndSellStock2(t *testing.T) {
 	convey.Convey("TestBestTimeToBuyAndSellStock2", t, func() {
 		convey.Convey("7,1,5,3,6,4", func() {
-			convey.So(IntShouldEqual(5, maxProfit122([]int{7, 1, 5, 3, 6, 4})), convey.ShouldBeTrue)
+			convey.So(IntShouldEqual(7, maxProfit122([]int{7, 1, 5, 3, 6, 4})), convey.ShouldBeTrue)
 		})
 		convey.Convey("1,2,3,4,5", func() {
 			convey.So(IntShouldEqual(4, maxProfit122([]int{1, 2, 3, 4, 5})), convey.ShouldBeTrue)
@@ -55,20 +54,18 @@ func TestBestTimeToBuyAndSellStock2(t *testing.T) {
 			convey.So(IntShouldEqual(0, maxProfit122([]int{7, 6, 4, 3, 1})), convey.ShouldBeTrue)
 		})
 		convey.Convey("1,6,5,7", func() {
-			convey.So(IntShouldEqual(6, maxProfit122([]int{1, 6, 5, 7})), convey.ShouldBeTrue)
+			convey.So(IntShouldEqual(7, maxProfit122([]int{1, 6, 5, 7})), convey.ShouldBeTrue)
 		})
 	})
 }
 
 func maxProfit122(prices []int) int {
-	if len(prices) < 2 {
-		return 0
+	res := 0
+	for i := 0; i < len(prices)-1; i++ {
+		incr := prices[i+1] - prices[i]
+		if incr > 0 {
+			res += incr
+		}
 	}
-	dp := make([]int, len(prices))
-	dp[0] = 0
-	for i := 1; i <= len(prices)-1; i++ {
-		dp[i] = Max(dp[i-1], prices[i]-prices[i-1])
-	}
-	fmt.Println(dp)
-	return dp[len(prices)-1]
+	return res
 }

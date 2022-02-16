@@ -1,6 +1,7 @@
 package Code
 
 import (
+	"math"
 	"testing"
 )
 
@@ -36,17 +37,19 @@ import (
 
 func Test121(t *testing.T) {
 	t.Log(maxProfit121([]int{1, 2, 3, 5, 6}))    //5
-	t.Log(maxProfit121([]int{7, 1, 5, 3, 6, 4})) //7
+	t.Log(maxProfit121([]int{7, 1, 5, 3, 6, 4})) //5
 	t.Log(maxProfit121([]int{7, 6, 4, 3, 1}))    //0
 }
 
+/**
+如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！太好了，在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+*/
 func maxProfit121(prices []int) int {
-	res := 0
-	for i := 0; i < len(prices)-1; i++ {
-		incr := prices[i+1] - prices[i]
-		if incr > 0 {
-			res += incr
-		}
+	minprice := math.MaxInt
+	maxprofit := 0
+	for _, price := range prices {
+		maxprofit = Max(maxprofit, price-minprice)
+		minprice = Min(price, minprice)
 	}
-	return res
+	return maxprofit
 }
