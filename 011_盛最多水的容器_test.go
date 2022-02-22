@@ -2,23 +2,35 @@ package Code
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
-	"math"
 	"testing"
 )
 
 /**
-Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.
+给定一个长度为 n 的整数数组height。有n条垂线，第 i 条线的两个端点是(i, 0)和(i, height[i])。
 
-Note: You may not slant the container and n is at least 2.
-Example:
+找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水。
 
-Input: [1,8,6,2,5,4,8,3,7]
-Output: 49
+返回容器可以储存的最大水量。
+
+说明：你不能倾斜容器。
+
+示例 1：
+
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为49。
+示例 2：
+
+输入：height = [1,1]
+输出：1
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/container-with-most-water
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
 func Test_maxArea(t *testing.T) {
 	Convey("Test_maxArea", t, func() {
-
 		Convey("[7,2,8]", func() {
 			So(IntShouldEqual(maxArea([]int{7, 2, 8}), 14), ShouldBeTrue)
 		})
@@ -28,6 +40,8 @@ func Test_maxArea(t *testing.T) {
 		})
 	})
 }
+
+// https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247494095&idx=5&sn=8a69b2ca4d48e8b4db2b153a405c6e52&scene=21#wechat_redirect
 func maxArea(height []int) int {
 	// O(n^n)
 	//lens := len(height)
@@ -49,17 +63,17 @@ func maxArea(height []int) int {
 
 	// O(n)
 	i, j := 0, len(height)-1
-	max := float64(0)
+	max := 0
 	for i < j {
 		if height[i] <= height[j] {
-			max = math.Max(max, float64(height[i]*(j-i)))
+			max = Max(max, height[i]*(j-i))
 			i++
 		} else {
-			max = math.Max(max, float64(height[j]*(j-i)))
+			max = Max(max, height[j]*(j-i))
 			j--
 		}
 	}
-	return int(max)
+	return max
 }
 
 func calculateAreaRight(height []int, cur, lens int, area *int) {

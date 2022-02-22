@@ -8,19 +8,16 @@ import (
 )
 
 func main() {
-	lru2, _ := NewLRU(3)
-	lru2.Add(1, 2)
-	lru2.Add(2, 3)
-
-	lru2.Add(3, 4)
-
-	lru2.Add(4, 5)
-	fmt.Println(lru2.Get(4))
-
+	lru2, _ := NewLRU(2)
+	lru2.Add(1, 1)
+	lru2.Add(2, 2)
 	fmt.Println(lru2.Get(1))
-	lru2.Get(2)
-	lru2.Add(5, 6)
+	lru2.Add(3, 3)
+	fmt.Println(lru2.Get(2))
+	lru2.Add(4, 4)
+	fmt.Println(lru2.Get(1))
 	fmt.Println(lru2.Get(3))
+	fmt.Println(lru2.Get(4))
 }
 
 type LRU struct {
