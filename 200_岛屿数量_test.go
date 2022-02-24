@@ -3,7 +3,7 @@ package Code
 import "testing"
 
 func Test200(t *testing.T) {
-	t.Log(numIslands([][]int{
+	t.Log(numIslands([][]byte{
 		{1, 1, 0, 1, 1},
 		{1, 0, 0, 0, 1},
 		{0, 0, 0, 0, 0},
@@ -12,7 +12,7 @@ func Test200(t *testing.T) {
 	})) // 4
 }
 
-func numIslands(grid [][]int) int {
+func numIslands(grid [][]byte) int {
 	m := len(grid)
 	n := len(grid[0])
 	total := 0
@@ -29,7 +29,7 @@ func numIslands(grid [][]int) int {
 	return total
 }
 
-func dfs200(grid [][]int, i, j, m, n int) {
+func dfs200(grid [][]byte, i, j, m, n int) {
 	if i < 0 || i >= m || j < 0 || j >= n {
 		return
 	}
