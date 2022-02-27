@@ -84,6 +84,46 @@ func CreateTreeRoot(values []int) *TreeNode {
 	return root
 }
 
+func CreateFullTreeRoot(values []int) *TreeNode {
+	if len(values) <= 0 {
+		return nil
+	}
+
+	list := make([]*TreeNode, 0)
+	var parent *TreeNode
+	var head *TreeNode
+	parentChildFill := 0
+	for i := 0; i < len(values); i++ {
+		if len(list) == 0 {
+			parent = &TreeNode{Val: values[i]}
+			parentChildFill = 0
+			if i == 0 {
+				head = parent
+			}
+			list = append(list, parent)
+		} else {
+			if parentChildFill == 0 {
+				node := &TreeNode{Val: values[i]}
+				parent.Left = node
+				parentChildFill++
+				list = append(list, node)
+			} else if parentChildFill == 1 {
+				node := &TreeNode{Val: values[i]}
+				parent.Right = node
+				parentChildFill++
+				list = append(list, node)
+			} else {
+				parent.Left = list[0]
+				list = list[1:]
+				parentChildFill = 0
+				node := &TreeNode{Val: values[i]}
+				list = append(list, node)
+			}
+		}
+	}
+	return head
+}
+
 func TreeNodePrint(tree *TreeNode) {
 	dep := GetTreeMaxDeep(tree)
 	pic := make([][]int, dep)

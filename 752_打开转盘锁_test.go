@@ -59,6 +59,7 @@ func Test752(t *testing.T) {
 
 }
 
+// https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485134&idx=1&sn=fd345f8a93dc4444bcc65c57bb46fc35&scene=21#wechat_redirect
 func openLock(deadends []string, target string) int {
 	hashDead := make(map[string]struct{})
 	for _, v := range deadends {
