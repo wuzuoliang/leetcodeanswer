@@ -19,3 +19,7 @@ func TestReverseLinkNode(t *testing.T) {
 	ListNodePrint(nList3)
 
 }
+
+func TestCreateFullTree(t *testing.T) {
+	CreateFullTreeRoot([]int{1, 2, 3, 4, 5, 6, 7, 8})
+}

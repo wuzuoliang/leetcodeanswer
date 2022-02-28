@@ -85,62 +85,28 @@ func CreateTreeRoot(values []int) *TreeNode {
 }
 
 func CreateFullTreeRoot(values []int) *TreeNode {
-	if len(values) <= 0 {
+	if len(values) == 0 {
 		return nil
 	}
-
-	list := make([]*TreeNode, 0)
-	var parent *TreeNode
-	var head *TreeNode
-	parentChildFill := 0
-	for i := 0; i < len(values); i++ {
-		if len(list) == 0 {
-			parent = &TreeNode{Val: values[i]}
-			parentChildFill = 0
-			if i == 0 {
-				head = parent
-			}
-			list = append(list, parent)
-		} else {
-			if parentChildFill == 0 {
-				node := &TreeNode{Val: values[i]}
-				parent.Left = node
-				parentChildFill++
-				list = append(list, node)
-			} else if parentChildFill == 1 {
-				node := &TreeNode{Val: values[i]}
-				parent.Right = node
-				parentChildFill++
-				list = append(list, node)
-			} else {
-				parent.Left = list[0]
-				list = list[1:]
-				parentChildFill = 0
-				node := &TreeNode{Val: values[i]}
-				list = append(list, node)
-			}
+	newvalue := make([]int, 0)
+	newvalue = append(newvalue, 0)
+	newvalue = append(newvalue, values...)
+	nodes := make([]*TreeNode, len(newvalue)+1)
+	for i := 1; i < len(newvalue); i++ {
+		curNode := nodes[i]
+		if curNode == nil {
+			nodes[i] = &TreeNode{Val: newvalue[i]}
+		}
+		if 2*i < len(newvalue) && nodes[2*i] == nil {
+			nodes[2*i] = &TreeNode{Val: newvalue[2*i]}
+			nodes[i].Left = nodes[2*i]
+		}
+		if 2*i+1 < len(newvalue) && nodes[2*i+1] == nil {
+			nodes[2*i+1] = &TreeNode{Val: newvalue[2*i+1]}
+			nodes[i].Right = nodes[2*i+1]
 		}
 	}
-	return head
-}
-
-func TreeNodePrint(tree *TreeNode) {
-	dep := GetTreeMaxDeep(tree)
-	pic := make([][]int, dep)
-	for i := 0; i < dep; i++ {
-		pic[i] = make([]int, dep*3)
-	}
-}
-
-func GetTreeMaxDeep(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	if root.Left == nil && root.Right == nil {
-		return 1
-	}
-
-	return 1 + Max(GetTreeMaxDeep(root.Left), GetTreeMaxDeep(root.Right))
+	return nodes[1]
 }
 
 func Min(a, b int) int {
