@@ -1,5 +1,13 @@
 package Code
 
+import "testing"
+
+func Test450(t *testing.T) {
+	root := CreateFullTreeRoot([]int{5, 2, 7, 1, 3, 6, 8})
+	root = deleteNode(root, 5)
+	t.Log(root)
+}
+
 func deleteNode(root *TreeNode, key int) *TreeNode {
 	if root == nil {
 		return nil
