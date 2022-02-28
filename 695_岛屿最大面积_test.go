@@ -4,6 +4,7 @@ import "testing"
 
 func Test695(t *testing.T) {}
 
+// dfs函数淹没岛屿的同时，还应该想办法记录这个岛屿的面积。
 func maxAresOfIsland(grid [][]int) int {
 	m := len(grid)
 	n := len(grid[0])
