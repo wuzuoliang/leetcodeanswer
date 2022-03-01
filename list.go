@@ -16,6 +16,7 @@ func ListNodePrint(l *ListNode) string {
 	fmt.Println(ret)
 	return ret
 }
+
 func CreateNodeList(values []int) *ListNode {
 	if len(values) <= 0 {
 		return nil
