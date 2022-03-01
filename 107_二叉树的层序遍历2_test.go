@@ -25,7 +25,6 @@ func Test_levelOrderBottom(t *testing.T) {
 
 }
 func levelOrderBottom(root *TreeNode) [][]int {
-
 	res := make([][]int, 0)
 	if root == nil {
 		return res
