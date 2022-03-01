@@ -1,5 +1,10 @@
 package Code
 
+import (
+	"math/rand"
+	"time"
+)
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode

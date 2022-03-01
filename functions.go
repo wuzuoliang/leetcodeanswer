@@ -3,9 +3,7 @@ package Code
 import (
 	"fmt"
 	"math"
-	"math/rand"
 	"sort"
-	"time"
 )
 
 func ThirdMin(a, b, c int) int {

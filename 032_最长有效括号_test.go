@@ -21,19 +21,14 @@ Explanation: The longest valid parentheses substring is "()()"
 */
 
 func Test_longestValidParentheses(t *testing.T) {
-
 	Convey("Test_longestValidParentheses", t, func() {
-
 		Convey("(()", func() {
 			So(IntShouldEqual(longestValidParentheses("(()"), 2), ShouldBeTrue)
-
 		})
 		Convey(")()())", func() {
 			So(IntShouldEqual(longestValidParentheses(")()())"), 4), ShouldBeTrue)
-
 		})
 	})
-
 }
 
 func longestValidParentheses(s string) int {

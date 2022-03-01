@@ -27,7 +27,7 @@ func Test_TwoSum(t *testing.T) {
 }
 
 func twoSum(nums []int, target int) []int {
-	result := []int{}
+	var result []int
 	m := make(map[int]int)
 	for i, k := range nums {
 		if value, exist := m[target-k]; exist {
