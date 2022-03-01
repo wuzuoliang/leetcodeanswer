@@ -110,6 +110,7 @@ func ReverseListIterNode(a, b *ListNode) *ListNode {
 	return pre
 }
 
+// https://mp.weixin.qq.com/s/A-dQ9spsP_Iu1Y4iCRP9nA
 // ReverseListKGroup K 个一组反转链表
 func ReverseListKGroup(head *ListNode, k int) *ListNode {
 	if head == nil {

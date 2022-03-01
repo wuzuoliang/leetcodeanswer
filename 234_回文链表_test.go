@@ -44,14 +44,16 @@ func isPalindrome234(head *ListNode) bool {
 	var slow, fast *ListNode
 	slow = head
 	fast = head
+	// 1、先通过 双指针技巧汇总 中的快慢指针来找到链表的中点：
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
 	}
-	// 如果链表是基数个节点，把正中间的归到左边去
+	// 2、如果fast指针没有指向null，说明链表长度为奇数，slow还要再前进一步：
 	if fast != nil {
 		slow = slow.Next
 	}
+	// 3、从slow开始反转后面的链表，现在就可以开始比较回文串了：
 	slow = ReverseListIter(slow)
 	fast = head
 
