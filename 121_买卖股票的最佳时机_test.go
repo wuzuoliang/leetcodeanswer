@@ -42,9 +42,13 @@ func Test121(t *testing.T) {
 }
 
 /**
-如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！太好了，在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247494095&idx=4&sn=7aed55b22e93c0e43b83172923b51acc&scene=21#wechat_redirect
+如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！
+太好了，在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。
+那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
 */
 func maxProfit121(prices []int) int {
+	// 此方法相当于折线图寻找最低点，然后求比最低点后面的最高点和之前已有的最大差值做比较
 	minprice := math.MaxInt
 	maxprofit := 0
 	for _, price := range prices {
@@ -53,3 +57,38 @@ func maxProfit121(prices []int) int {
 	}
 	return maxprofit
 }
+
+/**
+k == 1
+动态规划方法
+// 原始版本
+int maxProfit_k_1(int[] prices) {
+    int n = prices.length;
+    int[][] dp = new int[n][2];
+    for (int i = 0; i < n; i++) {
+        if (i - 1 == -1) {
+            // base case
+            dp[i][0] = 0;
+            dp[i][1] = -prices[i];
+            continue;
+        }
+        dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+        dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+    }
+    return dp[n - 1][0];
+}
+
+// 空间复杂度优化版本
+int maxProfit_k_1(int[] prices) {
+    int n = prices.length;
+    // base case: dp[-1][0] = 0, dp[-1][1] = -infinity
+    int dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
+    for (int i = 0; i < n; i++) {
+        // dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+        dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+        // dp[i][1] = max(dp[i-1][1], -prices[i])
+        dp_i_1 = Math.max(dp_i_1, -prices[i]);
+    }
+    return dp_i_0;
+}
+*/
