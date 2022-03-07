@@ -2,6 +2,7 @@ package Code
 
 import (
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -78,4 +79,26 @@ func CreateFullTreeRoot(values []int) *TreeNode {
 		}
 	}
 	return nodes[1]
+}
+
+// CreateTreeFromPreStr #代表空节点
+func CreateTreeFromPreStr(values []string) *TreeNode {
+	// 297_二叉树的序列化与反序列化_test.go
+	return preTraverseBack(&values)
+}
+
+func preTraverseBack(split *[]string) *TreeNode {
+	if len(*split) == 0 {
+		return nil
+	}
+	value := (*split)[0]
+	*split = (*split)[1:]
+	if value == "#" {
+		return nil
+	}
+	v, _ := strconv.Atoi(value)
+	newNode := &TreeNode{Val: v}
+	newNode.Left = preTraverseBack(split)
+	newNode.Right = preTraverseBack(split)
+	return newNode
 }
