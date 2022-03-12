@@ -42,10 +42,12 @@ func dailyTemperatures(temperatures []int) []int {
 	stack := make([]int, 0, n)
 	for i := 0; i < n; i++ {
 		for len(stack) > 0 && temperatures[i] > temperatures[stack[len(stack)-1]] {
-			topValue := stack[len(stack)-1]
+			topIndex := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-			res[topValue] = i - topValue
+			// 得到索引间距
+			res[topIndex] = i - topIndex
 		}
+		// 将索引入栈，而不是元素
 		stack = append(stack, i)
 	}
 	return res
