@@ -3,7 +3,7 @@ package Code
 import "testing"
 
 /**
-给定一个整数数组prices，其中第  prices[i]表示第i天的股票价格 。​
+给定一个整数数组prices，其中第prices[i]表示第i天的股票价格 。​
 
 设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
 

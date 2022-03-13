@@ -25,7 +25,7 @@ import "testing"
 0 <= Node.val <= 9
 
 
-进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+进阶：你能否用O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
 
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/palindrome-linked-list

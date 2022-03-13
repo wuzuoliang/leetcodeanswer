@@ -26,7 +26,7 @@ import "testing"
 
 提示：
 
-0 <= x, y <= 231 - 1
+0 <=x, y <= 231 - 1
 
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/hamming-distance
