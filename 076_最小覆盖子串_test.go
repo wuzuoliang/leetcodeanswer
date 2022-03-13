@@ -5,6 +5,43 @@ import (
 	"testing"
 )
 
+/**
+给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+
+
+
+注意：
+
+对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
+如果 s 中存在这样的子串，我们保证它是唯一的答案。
+
+
+示例 1：
+
+输入：s = "ADOBECODEBANC", t = "ABC"
+输出："BANC"
+示例 2：
+
+输入：s = "a", t = "a"
+输出："a"
+示例 3:
+
+输入: s = "a", t = "aa"
+输出: ""
+解释: t 中两个字符 'a' 均应包含在 s 的子串中，
+因此没有符合条件的子字符串，返回空字符串。
+
+
+提示：
+
+1 <= s.length, t.length <= 105
+s 和 t 由英文字母组成
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/minimum-window-substring
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+*/
 func Test76(t *testing.T) {
 	t.Log(minWindow("EBBANCF", "ABC"))        // BANC
 	t.Log(minWindow("ADOBECODEBAQNC", "ABC")) // BAQNC
@@ -13,43 +50,30 @@ func Test76(t *testing.T) {
 }
 
 func minWindowBest(s, t string) string {
-	if len(t) > len(s) {
-		return ""
+	var m [128]int
+	for i := range t {
+		m[t[i]]++
 	}
-	need := [58]int{}
-	for i := 0; i < len(t); i++ {
-		need[t[i]-'A']++
-	}
-	count := len(t)
-	l := 0
-	window := []int{0, math.MaxInt64}
-	for k, v := range s {
-		if need[v-'A'] > 0 {
-			count--
+	start, end := 0, math.MaxInt32
+	for left, right, counter := 0, 0, len(t); right < len(s); right++ {
+		if m[s[right]] > 0 {
+			counter--
 		}
-		need[v-'A']--
-
-		if count == 0 {
-			for {
-				c := s[l]
-				if need[c-'A'] == 0 {
-					break
-				}
-				need[c-'A']++
-				l++
+		m[s[right]]--
+		for ; counter == 0; left++ {
+			if right-left < end-start {
+				end, start = right, left
 			}
-			if k-l < window[1]-window[0] {
-				window = []int{l, k}
+			if m[s[left]] == 0 {
+				counter++
 			}
-			count++
-			need[s[l]-'A']++
-			l++
+			m[s[left]]++
 		}
 	}
-	if window[1] == math.MaxInt64 {
+	if end == math.MaxInt32 {
 		return ""
 	}
-	return s[window[0] : window[1]+1]
+	return s[start : end+1]
 
 }
 

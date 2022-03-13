@@ -1,7 +1,6 @@
 package Code
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -75,7 +74,6 @@ func checkInclusion(s1 string, s2 string) bool {
 		s1N[c-'a']++
 		s1C[c-'a'] = 0
 	}
-	fmt.Println(s1N, s1C)
 	valid := 0
 	left := 0
 	right := 0
@@ -83,6 +81,7 @@ func checkInclusion(s1 string, s2 string) bool {
 		cS2 := int32(s2[right]) - 'a'
 		right++
 		_, ok := s1N[cS2]
+		// 进行窗口内数据的一系列更新
 		if ok {
 			s1C[cS2]++
 			// 需求数量相同时候，++
@@ -90,12 +89,10 @@ func checkInclusion(s1 string, s2 string) bool {
 				valid++
 			}
 		}
-		//fmt.Println("right",right,"valud",valid)
 		// 判断左侧窗口是否要收缩
-		for right-left >= len(s1) {
-			//fmt.Println("right",right,"left",left)
+		for right-left >= len(s1) { // 本题移动left缩小窗口的时机是窗口大小大于t.size()时，因为排列嘛，显然长度应该是一样的
 			// 在这里判断是否找到了合法的子串
-			if valid == len(s1N) {
+			if valid == len(s1N) { //当发现valid == need.size()时，就说明窗口中就是一个合法的排列，所以立即返回true
 				return true
 			}
 			d := int32(s2[left]) - 'a'

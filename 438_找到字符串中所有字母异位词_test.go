@@ -1,7 +1,6 @@
 package Code
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -44,70 +43,69 @@ func Test438(t *testing.T) {
 }
 
 func findAnagrams438(s string, p string) []int {
-	window := make(map[rune]int)
-	need := make(map[rune]int)
-	for _, c := range p {
-		window[c] = 0
-		need[c]++
+	var freq [256]int
+	var result []int
+	if len(s) == 0 || len(s) < len(p) {
+		return result
 	}
-	fmt.Println(window, need)
-
-	var startIndex []int
-	left := 0
-	right := 0
-	valid := 0
+	for i := 0; i < len(p); i++ {
+		freq[p[i]-'a']++
+	}
+	left, right, count := 0, 0, len(p)
 
 	for right < len(s) {
-		rc := rune(s[right])
+		if freq[s[right]-'a'] >= 1 {
+			count--
+		}
+		freq[s[right]-'a']--
 		right++
-		_, ok := need[rc]
-		if ok {
-			window[rc]++
-			if window[rc] == need[rc] {
-				valid++
-			}
+		if count == 0 {
+			result = append(result, left)
 		}
-
-		for right-left >= len(p) {
-			if valid == len(need) {
-				startIndex = append(startIndex, left)
+		if right-left == len(p) {
+			if freq[s[left]-'a'] >= 0 {
+				count++
 			}
-			lc := rune(s[left])
+			freq[s[left]-'a']++
 			left++
-			_, ok := need[lc]
-			if ok {
-				if need[lc] == window[lc] {
-					valid--
-				}
-				window[lc]--
-			}
 		}
+
 	}
-	return startIndex
+	return result
 }
 
-func findAnagrams438Best(s string, p string) []int {
-	var r []int
-	if len(s) < len(p) {
-		return r
-	}
-	pDict, sDict := [26]int{}, [26]int{}
-	for i := 0; i < len(p); i++ {
-		pDict[p[i]-'a'] += 1
-		sDict[s[i]-'a'] += 1 // 这里很巧妙的是，遍历 p 的时候也把 s 的前面相等部分遍历了
-	}
-	var left int
-	for left < len(s)-len(p) {
-		if pDict == sDict {
-			r = append(r, left)
-		}
-		right := left + len(p)
-		sDict[s[right]-'a'] += 1
-		sDict[s[left]-'a'] -= 1
-		left++
-	}
-	if pDict == sDict {
-		r = append(r, left)
-	}
-	return r
+/**
+vector<int> findAnagrams(string s, string t) {
+    unordered_map<char, int> need, window;
+    for (char c : t) need[c]++;
+
+    int left = 0, right = 0;
+    int valid = 0;
+    vector<int> res; // 记录结果
+    while (right < s.size()) {
+        char c = s[right];
+        right++;
+        // 进行窗口内数据的一系列更新
+        if (need.count(c)) {
+            window[c]++;
+            if (window[c] == need[c])
+                valid++;
+        }
+        // 判断左侧窗口是否要收缩
+        while (right - left >= t.size()) {
+            // 当窗口符合条件时，把起始索引加入 res
+            if (valid == need.size())
+                res.push_back(left);
+            char d = s[left];
+            left++;
+            // 进行窗口内数据的一系列更新
+            if (need.count(d)) {
+                if (window[d] == need[d])
+                    valid--;
+                window[d]--;
+            }
+        }
+    }
+    return res;
 }
+*/

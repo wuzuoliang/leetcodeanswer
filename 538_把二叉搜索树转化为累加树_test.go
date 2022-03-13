@@ -7,19 +7,19 @@ func Test538(t *testing.T) {
 	t.Log(tree)
 }
 
-var sum int
-
-func convertBST(root *TreeNode) *TreeNode {
-	reverse538(root)
-	return root
-}
-
-func reverse538(root *TreeNode) {
+func travel(root *TreeNode, r int) int {
 	if root == nil {
-		return
+		return 0
 	}
-	reverse538(root.Right)
-	sum += root.Val
-	root.Val = sum
-	reverse538(root.Left)
+
+	right := travel(root.Right, r)
+	tmp := root.Val
+	root.Val += right + r
+	left := travel(root.Left, root.Val)
+	return left + right + tmp
+
+}
+func convertBST(root *TreeNode) *TreeNode {
+	travel(root, 0)
+	return root
 }
