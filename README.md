@@ -34,13 +34,13 @@ https://mp.weixin.qq.com/s/ir1Hk06HcT8W_qz0MtyONA
 二分查找框架
 ```c++
 int binary_search(int[] nums, int target) {
-    int left = 0, right = nums.length - 1; 
+    int left = 0, right = nums.length - 1;
     while(left <= right) {
         int mid = left + (right - left) / 2;
         if (nums[mid] < target) {
             left = mid + 1;
         } else if (nums[mid] > target) {
-            right = mid - 1; 
+            right = mid - 1;
         } else if(nums[mid] == target) {
             // 直接返回
             return mid;
@@ -95,3 +95,57 @@ int right_bound(int[] nums, int target) {
 另外声明一下，计算 mid 时需要防止溢出，代码中left + (right - left) / 2就和(left + right) / 2的结果相同，但是有效防止了left和right太大直接相加导致溢出。
 
 相关题目：【875、1482、1011、1551、410】
+
+### 二叉树
+
+### 多叉树
+多叉树遍历框架
+```c++
+/* 多叉树遍历框架 */
+void traverse(**TreeNode** root) {
+    if (root == null) return;
+
+    for (TreeNode child : root.children) {
+        traverse(child);
+    }
+}
+```
+
+### 图
+
+图的存储可用邻接表或者邻接矩阵
+
+图的遍历框架
+```c++
+// 记录被遍历过的节点
+// 由于图可能含有环，visited数组就是防止递归重复遍历同一个节点进入死循环的
+boolean[] visited;
+// 记录从起点到当前节点的路径
+boolean[] onPath;
+
+/* 图遍历框架 */
+void traverse(Graph graph, int s) {
+    if (visited[s]) return;
+    // 经过节点 s，标记为已遍历
+    visited[s] = true;
+    // 做选择：标记节点 s 在路径上
+    onPath[s] = true;
+    for (int neighbor : graph.neighbors(s)) {
+        traverse(graph, neighbor);
+    }
+    // 撤销选择：节点 s 离开路径
+    onPath[s] = false;
+}
+```
+
+### 拓扑排序
+
+拓扑排序的结果就是反转之后的后序遍历结果
+
+### 二分图
+
+二分图的顶点集可分割为两个互不相交的子集，图中每条边依附的两个顶点都分属于这两个子集，且两个子集内的顶点不相邻。
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdEHc01wZTpaCcy92roIW5z5OqAuBsactmk7BkoqE0z9vE2D8IoPMtuNDdnSr6fZDiclSs4K2FYjVDw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+相关题目：【785、886】

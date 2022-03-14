@@ -125,10 +125,11 @@ func dfs207(next int) {
 	if _, ok := visited[next]; ok || hasCycle {
 		return
 	}
+	visited[next] = struct{}{}
+
 	onPath[next] = struct{}{}
 	for _, n := range dictMap[next] {
 		dfs207(n)
 	}
 	delete(onPath, next)
-	visited[next] = struct{}{}
 }
