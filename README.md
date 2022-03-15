@@ -95,3 +95,7 @@ int right_bound(int[] nums, int target) {
 另外声明一下，计算 mid 时需要防止溢出，代码中left + (right - left) / 2就和(left + right) / 2的结果相同，但是有效防止了left和right太大直接相加导致溢出。
 
 相关题目：【875、1482、1011、1551、410】
+
+### 动态规划
+
+#### 子序列
