@@ -91,14 +91,13 @@ func dfs210(cur int, curss *[]int) {
 	if _, ok := visited[cur]; ok || hasCycle {
 		return
 	}
+	visited[cur] = struct{}{}
 
 	onPath[cur] = struct{}{}
 	for _, next := range dictMap[cur] {
 		dfs210(next, curss)
 	}
 	delete(onPath, cur)
-	if !hasCycle {
-		*curss = append(*curss, cur)
-	}
-	visited[cur] = struct{}{}
+
+	*curss = append(*curss, cur)
 }
