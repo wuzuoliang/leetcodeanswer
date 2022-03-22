@@ -6,6 +6,9 @@ https://www.bilibili.com/video/BV1eg411w7gn?p=1
 ## 2021 公众号精选文章目录
 https://mp.weixin.qq.com/s/ir1Hk06HcT8W_qz0MtyONA
 
+## 代码随想录
+https://programmercarl.com/
+
 ## 题目类型
 ### 前缀和数组
 前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。
