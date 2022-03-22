@@ -47,29 +47,30 @@ import (
 */
 
 func Test904(t *testing.T) {
+	t.Log(totalFruit([]int{0, 2, 1}))                         // 2
 	t.Log(totalFruit([]int{1, 2, 1}))                         // 3
 	t.Log(totalFruit([]int{0, 1, 2, 2}))                      // 3
 	t.Log(totalFruit([]int{1, 2, 3, 2, 2}))                   // 4
-	t.Log(totalFruit([]int{3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4})) // 8
+	t.Log(totalFruit([]int{3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4})) // 5
 }
 
 func totalFruit(fruits []int) int {
 	left := 0
 	right := 0
 	n := len(fruits) - 1
-	curMap := make(map[int]struct{}, 2)
+	curMap := make(map[int]int, 2)
 	maxLength := 0
 	for right <= n {
-		for len(curMap) <= 2 && right <= n {
-			curMap[fruits[right]] = struct{}{}
-			right++
-		}
-
-		for len(curMap) > 2 && right <= n {
-			delete(curMap, fruits[left])
+		curMap[fruits[right]] += 1
+		for len(curMap) > 2 {
+			curMap[fruits[left]] -= 1
+			if v, ok := curMap[fruits[left]]; ok && v == 0 {
+				delete(curMap, fruits[left])
+			}
 			left++
 		}
-		maxLength = Max(maxLength, right-left)
+		maxLength = Max(maxLength, right-left+1)
+		right++
 	}
 	return maxLength
 }
