@@ -28,7 +28,6 @@ import "testing"
 */
 
 func Test55(t *testing.T) {
-
 	t.Log(canJump([]int{1, 2, 3, 4, 5}))
 }
 
