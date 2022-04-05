@@ -2,6 +2,7 @@ package Code
 
 import (
 	"github.com/smartystreets/goconvey/convey"
+	"math"
 	"testing"
 )
 
@@ -51,26 +52,30 @@ func Test322(t *testing.T) {
 // 为啥dp数组初始化为amount + 1呢，
 // 因为凑成amount金额的硬币数最多只可能等于amount（全用 1 元面值的硬币），
 // 所以初始化为amount + 1就相当于初始化为正无穷，便于后续取最小值。
-func coinChange(ck []int, amount int) int {
-	if amount < 0 {
-		return -1
-	}
+func coinChange(coins []int, amount int) int {
+	// 先遍历物品,再遍历背包
 	dp := make([]int, amount+1)
-	for i := 0; i < amount+1; i++ {
-		dp[i] = amount + 1
-	}
+	// 初始化dp[0]
 	dp[0] = 0
-	for i := 1; i <= amount; i++ {
-		for j := 0; j < len(ck); j++ {
-			if i-ck[j] < 0 {
-				continue
+	// 初始化为math.MaxInt32
+	for j := 1; j <= amount; j++ {
+		dp[j] = math.MaxInt32
+	}
+
+	// 遍历物品
+	for i := 0; i < len(coins); i++ {
+		// 遍历背包
+		for j := coins[i]; j <= amount; j++ {
+			if dp[j-coins[i]] != math.MaxInt32 {
+				// 推导公式
+				dp[j] = Min(dp[j], dp[j-coins[i]]+1)
+				//fmt.Println(dp,j,i)
 			}
-			dp[i] = Min(dp[i], 1+dp[i-ck[j]])
 		}
 	}
-	if dp[amount] > amount {
+	// 没找到能装满背包的, 就返回-1
+	if dp[amount] == math.MaxInt32 {
 		return -1
-	} else {
-		return dp[amount]
 	}
+	return dp[amount]
 }

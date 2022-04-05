@@ -1,6 +1,9 @@
 package Code
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 /**
 给你一个整数数组 nums 和一个整数 target 。
@@ -40,8 +43,8 @@ import "testing"
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func Test494(t *testing.T) {
-	t.Log(findTargetSumWays([]int{1, 1, 1, 1, 1}, 3)) //5
-	t.Log(findTargetSumWays([]int{1}, 1))             //1
+	t.Log(findTargetSumWaysDP([]int{1, 1, 1, 1, 1}, 3)) //5
+	t.Log(findTargetSumWaysDP([]int{1}, 1))             //1
 }
 
 func findTargetSumWays(nums []int, target int) (count int) {
@@ -65,23 +68,28 @@ func findTargetSumWaysDP(nums []int, target int) int {
 	for _, v := range nums {
 		sum += v
 	}
-	diff := sum - target
-	if diff < 0 || diff%2 == 1 {
+	if abs(target) > sum {
 		return 0
 	}
-	n, neg := len(nums), diff/2
-	dp := make([][]int, n+1)
-	for i := range dp {
-		dp[i] = make([]int, neg+1)
+	if (sum+target)%2 == 1 {
+		return 0
 	}
-	dp[0][0] = 1
-	for i, num := range nums {
-		for j := 0; j <= neg; j++ {
-			dp[i+1][j] = dp[i][j]
-			if j >= num {
-				dp[i+1][j] += dp[i][j-num]
-			}
+	// 计算背包大小
+	bag := (sum + target) / 2
+	// 定义dp数组
+	dp := make([]int, bag+1)
+	// 初始化
+	dp[0] = 1
+	// 遍历顺序
+	for i := 0; i < len(nums); i++ {
+		for j := bag; j >= nums[i]; j-- {
+			//推导公式
+			dp[j] += dp[j-nums[i]]
+			//fmt.Println(dp)
 		}
 	}
-	return dp[n][neg]
+	return dp[bag]
+}
+func abs(x int) int {
+	return int(math.Abs(float64(x)))
 }

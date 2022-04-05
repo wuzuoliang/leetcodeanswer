@@ -74,3 +74,26 @@ func climbStairs(n int) int {
 	// }
 	// return res[n]
 }
+
+/**
+一步一个台阶，两个台阶，三个台阶，.......，直到 m个台阶。问有多少种不同的方法可以爬到楼顶呢？
+
+func climbStairs(n int) int {
+	//定义
+	dp := make([]int, n+1)
+	//初始化
+	dp[0] = 1
+	// 本题物品只有两个1,2
+	m := 2
+	// 遍历顺序
+	for j := 1; j <= n; j++ {	//先遍历背包
+		for i := 1; i <= m; i++ {	//再遍历物品
+			if j >= i {
+				dp[j] += dp[j-i]
+			}
+			//fmt.Println(dp)
+		}
+	}
+	return dp[n]
+}
+*/
