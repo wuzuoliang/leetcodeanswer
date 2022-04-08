@@ -3,7 +3,7 @@ package Code
 import "testing"
 
 /**
-给定一个整数数组prices，其中第prices[i]表示第i天的股票价格 。​
+给定一个整数数组prices，其中第prices[i]表示第i天的股票价格 。
 
 设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
 
@@ -88,6 +88,33 @@ int maxProfit_with_cool(int[] prices) {
         dp[i][1] = Math.max(dp[i-1][1], dp[i-2][0] - prices[i]);
     }
     return dp[n - 1][0];
+}
+
+https://programmercarl.com/0309.最佳买卖股票时机含冷冻期.html#思路
+// 最佳买卖股票时机含冷冻期 动态规划
+// 时间复杂度O(n) 空间复杂度O(n)
+func maxProfit(prices []int) int {
+    n := len(prices)
+    if n < 2 {
+        return 0
+    }
+
+    dp := make([][]int, n)
+    status := make([]int, n * 4)
+    for i := range dp {
+        dp[i] = status[:4]
+        status = status[4:]
+    }
+    dp[0][0] = -prices[0]
+
+    for i := 1; i < n; i++ {
+        dp[i][0] = max(dp[i - 1][0], max(dp[i - 1][1] - prices[i], dp[i - 1][3] - prices[i]))
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][3])
+        dp[i][2] = dp[i - 1][0] + prices[i]
+        dp[i][3] = dp[i - 1][2]
+    }
+
+    return max(dp[n - 1][1], max(dp[n - 1][2], dp[n - 1][3]))
 }
 
 // 空间复杂度优化版本

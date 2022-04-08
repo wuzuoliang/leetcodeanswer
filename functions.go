@@ -17,6 +17,16 @@ func Min(a, b int) int {
 	return a
 }
 
+func Mins(args ...int) int {
+	min := args[0]
+	for _, item := range args {
+		if item < min {
+			min = item
+		}
+	}
+	return min
+}
+
 func Max(a, b int) int {
 	if a > b {
 		return a

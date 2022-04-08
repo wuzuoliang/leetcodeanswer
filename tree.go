@@ -102,3 +102,8 @@ func preTraverseBack(split *[]string) *TreeNode {
 	newNode.Right = preTraverseBack(split)
 	return newNode
 }
+
+type NTreeNode struct {
+	Val      int
+	Children []*NTreeNode
+}
