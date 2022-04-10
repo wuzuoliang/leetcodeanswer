@@ -43,7 +43,7 @@ word1 和 word2 由小写英文字母组成
 */
 
 func Test72(t *testing.T) {
-
+	t.Log(minDistance72("abc1d", "abc"))
 }
 
 func minDistance72(word1 string, word2 string) int {

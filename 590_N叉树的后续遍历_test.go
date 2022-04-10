@@ -1,10 +1,5 @@
 package Code
 
-type NTreeNode struct {
-	Val      int
-	Children []*NTreeNode
-}
-
 func postorder(root *NTreeNode) []int {
 	res := make([]int, 0)
 	postorderNtree(root, &res)

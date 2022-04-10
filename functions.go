@@ -34,6 +34,16 @@ func Max(a, b int) int {
 	return b
 }
 
+func Maxs(args ...int) int {
+	max := args[0]
+	for _, item := range args {
+		if item > max {
+			max = item
+		}
+	}
+	return max
+}
+
 func Abs(a int) int {
 	if a < 0 {
 		return -a
