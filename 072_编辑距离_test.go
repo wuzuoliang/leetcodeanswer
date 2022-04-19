@@ -40,6 +40,8 @@ word1 和 word2 由小写英文字母组成
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/edit-distance
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+https://www.bilibili.com/video/BV1XU4y1d7E1?p=30
 */
 
 func Test72(t *testing.T) {

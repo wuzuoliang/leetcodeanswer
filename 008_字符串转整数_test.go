@@ -107,7 +107,7 @@ func myAtoi(str string) int {
 			val *= -1
 		}
 	}
-	return int(val)
+	return val
 }
 func caseNum(c rune) int {
 	switch c {

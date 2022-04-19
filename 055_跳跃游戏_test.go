@@ -35,17 +35,21 @@ func Test55(t *testing.T) {
 那么贪心算法作为特殊的动态规划也是一样，一般也是让你求个最值。这道题表面上不是求最值，但是可以改一改：
 
 请问通过题目中的跳跃规则，最多能跳多远？如果能够越过最后一格，返回 true，否则返回 false。
+
+https://www.bilibili.com/video/BV1XU4y1d7E1?p=36
 */
 func canJump(nums []int) bool {
 	if len(nums) == 0 {
 		return false
 	}
 	var full int
-	for i := 0; i < len(nums)-1; i++ {
-		full = Max(full, i+nums[i])
-		if full <= i {
-			return false
+	for i := 0; i < len(nums); i++ {
+		if i <= full {
+			full = Max(full, i+nums[i])
+			if full >= len(nums)-1 {
+				return true
+			}
 		}
 	}
-	return full >= len(nums)-1
+	return false
 }

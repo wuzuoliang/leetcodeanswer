@@ -48,7 +48,6 @@ func subsets(nums []int) [][]int {
 func backtrace78(nums []int, start int) {
 	newSub := make([]int, len(subs))
 	copy(newSub, subs)
-	fmt.Println(newSub)
 	subss = append(subss, newSub)
 
 	for i := start; i < len(nums); i++ {

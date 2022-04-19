@@ -6,17 +6,36 @@ import (
 )
 
 /**
-Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+给定一个仅包含数字2-9的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
 
-A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
 
-Example:
 
-Input: "23"
-Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
-Note:
 
-Although the above answer is in lexicographical order, your answer could be in any order you want.
+
+
+示例 1：
+
+输入：digits = "23"
+输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+示例 2：
+
+输入：digits = ""
+输出：[]
+示例 3：
+
+输入：digits = "2"
+输出：["a","b","c"]
+
+
+提示：
+
+0 <= digits.length <= 4
+digits[i] 是范围 ['2', '9'] 的一个数字。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
 func Test_letterCombinations(t *testing.T) {
@@ -41,38 +60,38 @@ func Test_letterCombinations(t *testing.T) {
 
 	})
 }
-func letterCombinations(digits string) []string {
-	letterMaps := map[rune][]string{
-		'2': {"a", "b", "c"},
-		'3': {"d", "e", "f"},
-		'4': {"g", "h", "i"},
-		'5': {"j", "k", "l"},
-		'6': {"m", "n", "o"},
-		'7': {"p", "q", "r", "s"},
-		'8': {"t", "u", "v"},
-		'9': {"w", "x", "y", "z"}}
 
-	lens := len(digits)
-	ret := make(map[int][]string, lens)
-	if lens <= 0 {
+var phoneMap = map[string]string{
+	"2": "abc",
+	"3": "def",
+	"4": "ghi",
+	"5": "jkl",
+	"6": "mno",
+	"7": "pqrs",
+	"8": "tuv",
+	"9": "wxyz",
+}
+
+var combinations []string
+
+func letterCombinations(digits string) []string {
+	if len(digits) == 0 {
 		return []string{}
 	}
-	for i, v := range digits {
-		if i == 0 {
-			tmp := make([]string, 0)
-			for _, v2 := range letterMaps[v] {
-				tmp = append(tmp, v2)
-			}
-			ret[i] = tmp
-		} else {
-			tmp := make([]string, 0)
-			for _, v2 := range ret[i-1] {
-				for _, v3 := range letterMaps[v] {
-					tmp = append(tmp, v2+v3)
-				}
-			}
-			ret[i] = tmp
+	combinations = []string{}
+	backtrack17(digits, 0, "")
+	return combinations
+}
+
+func backtrack17(digits string, index int, combination string) {
+	if index == len(digits) {
+		combinations = append(combinations, combination)
+	} else {
+		digit := string(digits[index])
+		letters := phoneMap[digit]
+		lettersCount := len(letters)
+		for i := 0; i < lettersCount; i++ {
+			backtrack17(digits, index+1, combination+string(letters[i]))
 		}
 	}
-	return ret[len(ret)-1]
 }

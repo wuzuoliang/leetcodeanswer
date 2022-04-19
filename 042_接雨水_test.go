@@ -28,6 +28,7 @@ func Test42(t *testing.T) {
 	t.Log(trap([]int{4, 2, 0, 3, 2, 5}))
 }
 
+// https://leetcode-cn.com/problems/trapping-rain-water/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-w-8/
 func trap(height []int) int {
 	// 时间复杂度O(n),空间复杂度O(n)
 	// 表示该位置左右两边最高的第二大值
