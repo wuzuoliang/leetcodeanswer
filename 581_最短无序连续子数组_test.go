@@ -50,13 +50,13 @@ func findUnsortedSubarrayBest(nums []int) int {
 	start, end := 0, -1
 
 	for i := 0; i < len(nums); i++ {
-		if nums[i] >= max {
+		if nums[i] >= max { //从左到右维持最大值，寻找右边界end
 			max = nums[i]
 		} else {
 			end = i
 		}
 
-		if nums[len(nums)-i-1] <= min {
+		if nums[len(nums)-i-1] <= min { //从右到左维持最小值，寻找左边界begin
 			min = nums[len(nums)-i-1]
 		} else {
 			start = len(nums) - i - 1

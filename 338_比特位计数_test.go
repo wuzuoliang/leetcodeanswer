@@ -39,6 +39,7 @@ func Test338(t *testing.T) {
 func countBits(n int) []int {
 	res := make([]int, n+1)
 	for i := 1; i <= n; i++ {
+		// x=x&(x-1) 表示把x的二进制最后一个1修改为0
 		res[i] = res[i&(i-1)] + 1
 	}
 	return res

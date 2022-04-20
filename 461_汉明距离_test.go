@@ -39,6 +39,8 @@ func Test461(t *testing.T) {
 func hammingDistance(x int, y int) int {
 	count := 0
 
+	// ^ 异或，相同写0 ，不同写1
+	// x&(x-1) 是消除二进制位最后一个1
 	for yh := x ^ y; yh != 0; yh &= yh - 1 {
 		count++
 	}
