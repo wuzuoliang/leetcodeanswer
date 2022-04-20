@@ -26,6 +26,8 @@ func Test240(t *testing.T) {
 		{24, 25, 33, 36, 37, 40}}, 21))
 }
 
+// https://www.bilibili.com/video/BV1XU4y1d7E1?p=41
+// 升级问题，返回最小的K个的数
 func searchMatrix(matrix [][]int, target int) bool {
 	row := 0
 	line := len(matrix)
@@ -40,5 +42,4 @@ func searchMatrix(matrix [][]int, target int) bool {
 		}
 	}
 	return false
-
 }

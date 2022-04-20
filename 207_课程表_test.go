@@ -47,32 +47,77 @@ func Test207(t *testing.T) {
 	t.Log(canFinish(1, [][]int{}))               // true
 }
 
-func canFinishBest(numCourses int, prerequisites [][]int) bool {
-	res := []int{}
-	edges := make([][]int, numCourses)
-	indeg := make([]int, numCourses)
-	for _, y := range prerequisites {
-		edges[y[1]] = append(edges[y[1]], y[0])
-		indeg[y[0]]++
+// canFinishDFS 深度优先搜索
+func canFinishDFS(numCourses int, prerequisites [][]int) bool {
+	var (
+		edges   = make([][]int, numCourses)
+		visited = make([]int, numCourses)
+		result  []int
+		valid   = true
+		dfs     func(u int)
+	)
+
+	dfs = func(u int) {
+		visited[u] = 1
+		for _, v := range edges[u] {
+			if visited[v] == 0 {
+				dfs(v)
+				if !valid {
+					return
+				}
+			} else if visited[v] == 1 {
+				valid = false
+				return
+			}
+		}
+		visited[u] = 2
+		result = append(result, u)
 	}
-	q := []int{}
-	for x, y := range indeg {
-		if y == 0 {
-			q = append(q, x)
+
+	for _, info := range prerequisites {
+		edges[info[1]] = append(edges[info[1]], info[0])
+	}
+
+	for i := 0; i < numCourses && valid; i++ {
+		if visited[i] == 0 {
+			dfs(i)
 		}
 	}
+	return valid
+}
+
+// canFinishBFS 广度优先搜索
+func canFinishBFS(numCourses int, prerequisites [][]int) bool {
+	var (
+		edges  = make([][]int, numCourses)
+		indeg  = make([]int, numCourses)
+		result []int
+	)
+
+	for _, info := range prerequisites {
+		edges[info[1]] = append(edges[info[1]], info[0])
+		indeg[info[0]]++
+	}
+
+	q := []int{}
+	for i := 0; i < numCourses; i++ {
+		if indeg[i] == 0 {
+			q = append(q, i)
+		}
+	}
+
 	for len(q) > 0 {
-		y := q[0]
+		u := q[0]
 		q = q[1:]
-		res = append(res, y)
-		for _, z := range edges[y] {
-			indeg[z]--
-			if indeg[z] == 0 {
-				q = append(q, z)
+		result = append(result, u)
+		for _, v := range edges[u] {
+			indeg[v]--
+			if indeg[v] == 0 {
+				q = append(q, v)
 			}
 		}
 	}
-	return len(res) == numCourses
+	return len(result) == numCourses
 }
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
@@ -98,6 +143,8 @@ func _207_210_init() {
 
 var hasCycle bool
 var dictMap map[int][]int
+
+// PS：类比贪吃蛇游戏，visited 记录蛇经过过的格子，而 onPath 仅仅记录蛇身。onPath 用于判断是否成环，类比当贪吃蛇自己咬到自己（成环）的场景。
 var visited map[int]struct{}
 var onPath map[int]struct{}
 

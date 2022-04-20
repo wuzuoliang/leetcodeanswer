@@ -26,11 +26,11 @@ func maxSlidingWindow(nums []int, k int) []int {
 	if len(nums) == 0 {
 		return []int{}
 	}
-	//用切片模拟一个双端队列
+	// 用切片模拟一个双端队列
 	queue := []int{}
 	result := []int{}
 	for i := range nums {
-		for i > 0 && (len(queue) > 0) && nums[i] > queue[len(queue)-1] {
+		for i > 0 && len(queue) > 0 && nums[i] > queue[len(queue)-1] {
 			//将比当前元素小的元素祭天
 			queue = queue[:len(queue)-1]
 		}

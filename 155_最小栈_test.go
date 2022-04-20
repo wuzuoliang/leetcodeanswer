@@ -2,6 +2,7 @@ package Code
 
 import (
 	"github.com/smartystreets/goconvey/convey"
+	"math"
 	"testing"
 )
 
@@ -66,6 +67,14 @@ func TestMinStack(t *testing.T) {
 			stack.Pop()
 			t.Log(stack.GetMin()) //-2
 		})
+		convey.Convey("[\"MinStack2\",\"push\",\"push\",\"push\",\"getMin\",\"top\",\"pop\",\"getMin\"]", func() {
+			stack := Constructor155()
+			stack.Push(-2)
+			t.Log(stack.GetMin()) //-2
+			t.Log(stack.Top())    //-1
+			stack.Pop()
+			t.Log(stack.GetMin()) //-2
+		})
 	})
 }
 
@@ -78,46 +87,32 @@ func TestMinStack(t *testing.T) {
  * param_4 := obj.GetMin();
  */
 type MinStack struct {
-	data    []int
-	minData []int
-	tail    int
+	stack    []int
+	minStack []int
 }
 
 func Constructor155() MinStack {
 	return MinStack{
-		data:    make([]int, 0),
-		minData: make([]int, 0),
-		tail:    -1,
+		stack:    []int{},
+		minStack: []int{math.MaxInt64},
 	}
 }
 
-func (this *MinStack) Push(val int) {
-	this.data = append(this.data, val)
-	if len(this.minData) == 0 {
-		this.minData = append(this.minData, 0)
-		this.tail += 1
-	} else if val < this.GetMin() {
-		this.tail += 1
-		this.minData = append(this.minData, this.tail)
-	} else {
-		this.minData = append(this.minData, this.minData[this.tail])
-		this.tail += 1
-	}
+func (this *MinStack) Push(x int) {
+	this.stack = append(this.stack, x)
+	top := this.minStack[len(this.minStack)-1]
+	this.minStack = append(this.minStack, Min(x, top))
 }
 
 func (this *MinStack) Pop() {
-	if this.tail < 0 {
-		return
-	}
-	this.minData = this.minData[0:this.tail]
-	this.data = this.data[0:this.tail]
-	this.tail -= 1
+	this.stack = this.stack[:len(this.stack)-1]
+	this.minStack = this.minStack[:len(this.minStack)-1]
 }
 
 func (this *MinStack) Top() int {
-	return this.data[this.tail]
+	return this.stack[len(this.stack)-1]
 }
 
 func (this *MinStack) GetMin() int {
-	return this.data[this.minData[this.tail]]
+	return this.minStack[len(this.minStack)-1]
 }
