@@ -60,28 +60,34 @@ func Test752(t *testing.T) {
 }
 
 // https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485134&idx=1&sn=fd345f8a93dc4444bcc65c57bb46fc35&scene=21#wechat_redirect
+// BFS
 func openLock(deadends []string, target string) int {
+	// 记录需要跳过的死亡密码
 	hashDead := make(map[string]struct{})
 	for _, v := range deadends {
 		hashDead[v] = struct{}{}
 	}
+	// 记录已经穷举过的密码，防止走回头路
 	hashVisited := make(map[string]struct{})
 	hashVisited["0000"] = struct{}{}
+	// 从起点开始启动广度优先搜索
 	list := make([]string, 0)
 	list = append(list, "0000")
 	step := 0
 	for len(list) > 0 {
 		listSize := len(list)
+		/* 将当前队列中的所有节点向周围扩散 */
 		for l := 0; l < listSize; l++ {
 			front := list[0]
 			list = list[1:]
+			/* 判断是否到达终点 */
 			if _, ok := hashDead[front]; ok {
 				continue
 			}
 			if front == target {
 				return step
 			}
-
+			/* 将一个节点的未遍历相邻节点加入队列 */
 			for i := 0; i < 4; i++ {
 				up := moveUp(front, i)
 				if _, ok := hashVisited[up]; !ok {
@@ -96,8 +102,10 @@ func openLock(deadends []string, target string) int {
 				}
 			}
 		}
+		/* 在这里增加步数 */
 		step++
 	}
+	// 如果穷举完都没找到目标密码，那就是找不到了
 	return -1
 }
 

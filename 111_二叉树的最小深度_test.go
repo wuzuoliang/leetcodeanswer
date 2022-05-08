@@ -55,7 +55,6 @@ BFS 可以找到最短距离，但是空间复杂度高，而 DFS 的空间复�
 
 // DFS
 func minDepthReverse(root *TreeNode) int {
-
 	if root == nil {
 		return 0
 	}

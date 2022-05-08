@@ -35,28 +35,6 @@ candidates 中的 同一个 数字可以 无限制重复被选取 。如果至�
 链接：https://leetcode-cn.com/problems/combination-sum
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
-func combinationSum(candidates []int, target int) [][]int {
-	res := [][]int{}
-	var dfs func(start int, temp []int, sum int)
-
-	dfs = func(start int, temp []int, sum int) {
-		if sum >= target {
-			if sum == target {
-				newTmp := make([]int, len(temp))
-				copy(newTmp, temp)
-				res = append(res, newTmp)
-			}
-			return
-		}
-		for i := start; i < len(candidates); i++ {
-			temp = append(temp, candidates[i])
-			dfs(i, temp, sum+candidates[i])
-			temp = temp[:len(temp)-1]
-		}
-	}
-	dfs(0, []int{}, 0)
-	return res
-}
 
 // https://www.bilibili.com/video/BV1KT4y1M7HJ
 func Test_combinationSum(t *testing.T) {
@@ -78,4 +56,28 @@ func Test_combinationSum(t *testing.T) {
 			fmt.Println(combinationSum(input, 11))
 		})
 	})
+}
+
+func combinationSum(candidates []int, target int) [][]int {
+	res := [][]int{}
+	var dfs func(start int, temp []int, sum int)
+
+	dfs = func(start int, temp []int, sum int) {
+		if sum >= target {
+			if sum == target {
+				newTmp := make([]int, len(temp))
+				copy(newTmp, temp)
+				res = append(res, newTmp)
+			}
+			return
+		}
+		for i := start; i < len(candidates); i++ {
+			temp = append(temp, candidates[i])
+			//  关键点:不用i+1了，表示可以重复读取当前的数
+			dfs(i, temp, sum+candidates[i])
+			temp = temp[:len(temp)-1]
+		}
+	}
+	dfs(0, []int{}, 0)
+	return res
 }

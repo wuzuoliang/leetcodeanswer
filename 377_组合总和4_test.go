@@ -40,6 +40,7 @@ nums 中的所有元素 互不相同
 */
 
 /**
+https://www.bilibili.com/video/BV19S4y187oe?spm_id_from=333.999.0.0
 如果求组合数就是外层for循环遍历物品，内层for遍历背包。
 
 如果求排列数就是外层for遍历背包，内层for循环遍历物品。

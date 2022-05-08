@@ -1,7 +1,5 @@
 package Code
 
-import "testing"
-
 /**
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
 
@@ -39,11 +37,8 @@ p 和 q 均存在于给定的二叉树中。
 链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
-func Test236(t *testing.T) {
 
-}
-
-func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+func lowestCommonAncestor236(root, p, q *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
@@ -51,8 +46,8 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		return root
 	}
 
-	left := lowestCommonAncestor(root.Left, p, q)
-	right := lowestCommonAncestor(root.Right, p, q)
+	left := lowestCommonAncestor236(root.Left, p, q)
+	right := lowestCommonAncestor236(root.Right, p, q)
 	if left != nil && right != nil {
 		return root
 	}

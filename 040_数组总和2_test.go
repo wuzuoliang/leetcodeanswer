@@ -6,57 +6,76 @@ import (
 )
 
 /**
-Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+给定一个候选人编号的集合candidates和一个目标数target，找出candidates中所有可以使数字和为target的组合。
 
-Each number in candidates may only be used once in the combination.
+candidates中的每个数字在每个组合中只能使用一次。
 
-Note:
+注意：解集不能包含重复的组合。
 
-All numbers (including target) will be positive integers.
-The solution set must not contain duplicate combinations.
-Example 1:
 
-Input: candidates = [10,1,2,7,6,1,5], target = 8,
-A solution set is:
+
+示例1:
+
+输入: candidates =[10,1,2,7,6,1,5], target =8,
+输出:
 [
-  [1, 7],
-  [1, 2, 5],
-  [2, 6],
-  [1, 1, 6]
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
 ]
-Example 2:
+示例2:
 
-Input: candidates = [2,5,2,1,2], target = 5,
-A solution set is:
+输入: candidates =[2,5,2,1,2], target =5,
+输出:
 [
-  [1,2,2],
-  [5]
+[1,2,2],
+[5]
 ]
+
+
+提示:
+
+1 <=candidates.length <= 100
+1 <=candidates[i] <= 50
+1 <= target <= 30
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combination-sum-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
 func Test_combinationSum2(t *testing.T) {
 	t.Log(combinationSum2([]int{10, 1, 2, 7, 6, 1, 5}, 8))
 }
+
 func combinationSum2(candidates []int, target int) [][]int {
-	res := make([][]int, 0)
+	var trcak []int
+	var res [][]int
 	sort.Ints(candidates)
-	for i := 0; i < len(candidates); {
-		if candidates[i] > target {
-			break
-		}
-		if candidates[i] == target {
-			res = append(res, []int{candidates[i]})
-		}
-		t := i
-		for candidates[i] == candidates[t] {
-			t++
-		}
-		ls := combinationSum2(candidates[t:], target-candidates[i])
-		for l := range ls {
-			ls[l] = append(ls[l], candidates[i])
-			res = append(res, ls[l])
-		}
-		i = t
-	}
+	backtracking(0, 0, target, candidates, trcak, &res)
 	return res
+}
+func backtracking(startIndex, sum, target int, candidates, trcak []int, res *[][]int) {
+	//终止条件
+	if sum == target {
+		tmp := make([]int, len(trcak))
+		//拷贝
+		copy(tmp, trcak)
+		//放入结果集
+		*res = append(*res, tmp)
+		return
+	}
+	//回溯
+	for i := startIndex; i < len(candidates) && sum+candidates[i] <= target; i++ {
+		// 若当前树层有使用过相同的元素，则跳过
+		if i > startIndex && candidates[i] == candidates[i-1] {
+			continue
+		}
+		//更新路径集合和sum
+		trcak = append(trcak, candidates[i])
+		backtracking(i+1, sum+candidates[i], target, candidates, trcak, res)
+		//回溯
+		trcak = trcak[:len(trcak)-1]
+	}
 }

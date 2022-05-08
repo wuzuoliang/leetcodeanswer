@@ -36,6 +36,11 @@ func TestHouseRobber(t *testing.T) {
 	})
 }
 
+/**
+p1=nums[i]
+p2=dp[i-1]
+p3=dp[i-2]+nums[i]
+*/
 func robber(houses []int) int {
 	length := len(houses)
 	if length == 1 {

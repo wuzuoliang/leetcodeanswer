@@ -10,6 +10,7 @@ func Test773(t *testing.T) {
 	t.Log(slidingPuzzle([][]int{{4, 1, 2}, {5, 0, 3}}))
 }
 
+// https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485383&idx=1&sn=4cd4b5b70e2eda33ad66562e5c007a1e&scene=21#wechat_redirect
 // 根据当前位置确定的周围可交换的位置
 var neighbors = [6][]int{{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}}
 

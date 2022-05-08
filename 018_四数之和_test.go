@@ -13,12 +13,12 @@ func fourSum(nums []int, target int) [][]int {
 		// if n1 > target { // 不能这样写,因为可能是负数
 		// 	break
 		// }
-		if i > 0 && n1 == nums[i-1] {
+		if i > 0 && n1 == nums[i-1] { // 为了去重
 			continue
 		}
 		for j := i + 1; j < len(nums)-2; j++ {
 			n2 := nums[j]
-			if j > i+1 && n2 == nums[j-1] {
+			if j > i+1 && n2 == nums[j-1] { // 为了去重
 				continue
 			}
 			l := j + 1

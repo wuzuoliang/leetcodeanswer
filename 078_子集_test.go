@@ -1,7 +1,6 @@
 package Code
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -50,12 +49,13 @@ func backtrace78(nums []int, start int) {
 	copy(newSub, subs)
 	subss = append(subss, newSub)
 
+	// 注意 i 从 start 开始递增
 	for i := start; i < len(nums); i++ {
+		// 做选择
 		subs = append(subs, nums[i])
-		fmt.Println(subs)
+		// 回溯
 		backtrace78(nums, i+1)
-
+		// 撤销选择
 		subs = subs[:len(subs)-1]
-
 	}
 }

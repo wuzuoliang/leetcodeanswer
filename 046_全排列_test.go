@@ -1,7 +1,6 @@
 package Code
 
 import (
-	"strconv"
 	"testing"
 )
 
@@ -39,44 +38,23 @@ func Test46(t *testing.T) {
 	t.Log(permute([]int{1, 2, 3}))
 }
 
-var res [][]int
-var innerres []int
+var res46 [][]int
 
 func permute(nums []int) [][]int {
-	res = make([][]int, 0)
-	innerres = make([]int, 0)
-	visited := make(map[string]struct{})
-	used := make(map[int]struct{})
-	dfs46(nums, used, visited, len(nums))
-	return res
+	res46 = [][]int{}
+	backTrack(nums, len(nums), []int{})
+	return res46
 }
-
-func dfs46(nums []int, used map[int]struct{}, visited map[string]struct{}, n int) {
-	if len(innerres) == n {
-		str := ""
-		newValues := make([]int, 0, n)
-		for _, v := range innerres {
-			str += strconv.Itoa(v)
-			newValues = append(newValues, v)
-		}
-		if _, ok := visited[str]; ok {
-			return
-		}
-		res = append(res, newValues)
-		return
+func backTrack(nums []int, numsLen int, path []int) {
+	if len(nums) == 0 {
+		p := make([]int, len(path))
+		copy(p, path)
+		res46 = append(res46, p)
 	}
-
-	for _, v := range nums {
-		if _, ok := used[v]; ok {
-			continue
-		}
-
-		used[v] = struct{}{}
-		innerres = append(innerres, v)
-
-		dfs46(nums, used, visited, n)
-
-		innerres = (innerres)[0 : len(innerres)-1]
-		delete(used, v)
+	for i := 0; i < numsLen; i++ {
+		cur := nums[i]
+		nums = append(nums[:i], nums[i+1:]...) //直接使用切片
+		backTrack(nums, len(nums), append(path, cur))
+		nums = append(nums[:i], append([]int{cur}, nums[i:]...)...) //回溯的时候切片也要复原，元素位置不能变
 	}
 }

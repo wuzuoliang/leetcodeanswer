@@ -33,6 +33,7 @@ import "testing"
 */
 func Test739(t *testing.T) {
 	t.Log(dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73}))
+	t.Log(dailyTemperatures([]int{80, 74, 75, 71, 69, 72, 76, 73}))
 }
 
 // https://leetcode-cn.com/problems/daily-temperatures/solution/leetcode-tu-jie-739mei-ri-wen-du-by-misterbooo/
