@@ -1,6 +1,7 @@
 package Code
 
 import (
+	"math"
 	"sort"
 	"testing"
 )
@@ -13,31 +14,34 @@ func Test252(t *testing.T) {
 	t.Log(minMeetingRooms([][]int{{0, 30}, {5, 10}, {15, 20}}))
 }
 
+// https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247491640&idx=1&sn=60344b057f19a4765a15ed17cb7c8018&scene=21#wechat_redirect
 func minMeetingRooms(meetings [][]int) int {
-	if len(meetings) == 0 {
+	n := len(meetings)
+	if n == 0 {
 		return 0
 	}
-	sort.Slice(meetings, func(i, j int) bool {
-		if meetings[i][1] < meetings[j][1] {
-			return true
-		} else {
-			if meetings[i][0] <= meetings[j][0] {
-				return true
-			}
-		}
-		return false
-	})
-	countMax := 1
-	for i := 1; i < len(meetings)-1; i++ {
-		count := 1
-		for j := 0; j < i; j++ {
-			if meetings[j][0] < meetings[i][1] {
-				count++
-			}
-		}
-		if count > countMax {
-			countMax = count
-		}
+	begins := make([]int, 0, n)
+	ends := make([]int, 0, n)
+	for _, v := range meetings {
+		begins = append(begins, v[0])
+		ends = append(ends, v[1])
 	}
-	return countMax
+	sort.Ints(begins)
+	sort.Ints(ends)
+
+	max := math.MinInt
+	count := 0
+	l := 0
+	r := 0
+	for l < n && r < n {
+		if begins[l] < ends[r] {
+			count++
+			l++
+		} else {
+			count--
+			r++
+		}
+		max = Max(max, count)
+	}
+	return max
 }

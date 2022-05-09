@@ -64,31 +64,19 @@ func maxSubArray(nums []int) int {
 	return result
 }
 
-// O(nlogn)
+// 贪心算法 时间复杂度：O(n)  空间复杂度：O(1)
 func maxSubArray2(nums []int) int {
-	if len(nums) == 0 {
-		return 0
+	res := 0
+	tmpSum := 0
+	for i := 0; i < len(nums); i++ {
+		tmpSum += nums[i]
+		// 取区间累计的最大值（相当于不断确定最大子序终止位置）
+		if tmpSum > res {
+			res = tmpSum
+		} else if tmpSum <= 0 {
+			// 相当于重置最大子序起始位置，因为遇到负数一定是拉低总和
+			tmpSum = 0
+		}
 	}
-	return spilts2(nums, 0, len(nums)-1)
-}
-
-func spilts2(nums []int, left, right int) int {
-	if left >= right {
-		return nums[left]
-	}
-	mid := left + (right-left)/2
-	lmax := spilts2(nums, left, mid-1)
-	rmax := spilts2(nums, mid+1, right)
-	mmax := nums[mid]
-	t := mmax
-	for i := mid - 1; i >= left; i-- {
-		t += nums[i]
-		mmax = Max(mmax, t)
-	}
-	t = mmax
-	for i := mid + 1; i <= right; i++ {
-		t += nums[i]
-		mmax = Max(mmax, t)
-	}
-	return Max(mmax, Max(lmax, rmax))
+	return res
 }
