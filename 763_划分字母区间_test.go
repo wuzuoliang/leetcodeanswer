@@ -27,10 +27,11 @@ func Test763(t *testing.T) {
 }
 
 // https://leetcode-cn.com/problems/partition-labels/solution/shou-hua-tu-jie-hua-fen-zi-mu-qu-jian-ji-lu-zui-yu/
+// https://programmercarl.com/0763.划分字母区间.html#思路
 func partitionLabels(S string) []int {
 	maxPos := map[byte]int{}
 	for i := 0; i < len(S); i++ {
-		maxPos[S[i]] = i
+		maxPos[S[i]] = i // i为字符，hash[i]为字符出现的最后位置
 	}
 
 	res := []int{}
@@ -41,7 +42,7 @@ func partitionLabels(S string) []int {
 		if curCharMaxPos > scannedCharMaxPos {
 			scannedCharMaxPos = curCharMaxPos
 		}
-		if i == scannedCharMaxPos {
+		if i == scannedCharMaxPos { // 找到字符出现的最远边界
 			res = append(res, i-start+1)
 			start = i + 1
 		}

@@ -59,6 +59,7 @@ import "math"
 情况4：头结点没有覆盖
 
 */
+// https://programmercarl.com/0968.监控二叉树.html#其他语言版本
 func minCameraCover(root *TreeNode) int {
 	var dfs func(*TreeNode) (a, b, c int)
 	dfs = func(node *TreeNode) (a, b, c int) {

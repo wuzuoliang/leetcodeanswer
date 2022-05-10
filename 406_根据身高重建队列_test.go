@@ -48,6 +48,7 @@ func Test406(t *testing.T) {
 }
 
 // https://leetcode-cn.com/problems/queue-reconstruction-by-height/solution/xian-pai-xu-zai-cha-dui-dong-hua-yan-shi-suan-fa-g/
+// https://programmercarl.com/0406.根据身高重建队列.html#其他语言版本
 func reconstructQueue(people [][]int) (ans [][]int) {
 	sort.Slice(people, func(i, j int) bool {
 		a, b := people[i], people[j]

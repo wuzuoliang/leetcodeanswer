@@ -37,10 +37,33 @@ n == ratings.length
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func Test135(t *testing.T) {
-
+	t.Log(candy([]int{1, 0, 2}))
+	t.Log(candy([]int{1, 2, 2}))
 }
 
-// TODO
+// https://www.bilibili.com/video/BV1XU4y1d7E1?p=27
 func candy(ratings []int) int {
-	return 0
+	left := make([]int, len(ratings))
+	right := make([]int, len(ratings))
+	left[0] = 1
+	for i := 1; i < len(ratings); i++ {
+		if ratings[i] > ratings[i-1] {
+			left[i] = left[i-1] + 1
+		} else {
+			left[i] = 1
+		}
+	}
+	right[len(ratings)-1] = 1
+	for j := len(ratings) - 1; j > 0; j-- {
+		if ratings[j-1] > ratings[j] {
+			right[j-1] += right[j] + 1
+		} else {
+			right[j-1] = 1
+		}
+	}
+	ans := 0
+	for i := 0; i < len(ratings); i++ {
+		ans += Max(left[i], right[i])
+	}
+	return ans
 }

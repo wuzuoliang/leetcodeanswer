@@ -30,6 +30,7 @@ func Test56(t *testing.T) {
 	t.Log(merge([][]int{{1, 4}, {2, 3}}))
 }
 
+// https://programmercarl.com/0056.合并区间.html#思路
 func merge(intervals [][]int) [][]int {
 	if len(intervals) <= 1 {
 		return intervals
