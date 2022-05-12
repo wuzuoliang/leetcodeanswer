@@ -1,5 +1,7 @@
 package Code
 
+import "testing"
+
 /**
 给你一个字符串 s ，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证 返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
 
@@ -68,6 +70,37 @@ String removeDuplicateLetters(String s) {
 }
 */
 
+func Test316(t *testing.T) {
+	t.Log(removeDuplicateLetters("bcabc"))    //abc
+	t.Log(removeDuplicateLetters("cbacdcbc")) //acdb
+	t.Log(removeDuplicateLetters("cdadabcc")) // "adbc"
+	t.Log(removeDuplicateLetters("abacb"))    //abc
+}
+
 func removeDuplicateLetters(s string) string {
-	return ""
+	charCountMap := make(map[rune]int)
+	distinceCharMap := make(map[rune]int)
+	for _, v := range s {
+		charCountMap[v] += 1
+		distinceCharMap[v] = 0
+	}
+	stack := make([]rune, 0)
+	for i := 0; i < len(s); i++ {
+		charCountMap[rune(s[i])]--
+		if distinceCharMap[rune(s[i])] == 1 {
+			continue
+		}
+
+		for len(stack) > 0 && stack[len(stack)-1] > rune(s[i]) && charCountMap[stack[len(stack)-1]] > 0 {
+			distinceCharMap[stack[len(stack)-1]] = 0
+			stack = stack[:len(stack)-1]
+		}
+		stack = append(stack, rune(s[i]))
+		distinceCharMap[rune(s[i])] = 1
+	}
+	res := ""
+	for _, v := range stack {
+		res += string(v)
+	}
+	return res
 }

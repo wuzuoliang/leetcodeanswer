@@ -29,10 +29,10 @@ import (
 */
 
 func Test560(t *testing.T) {
-	t.Log(subarraySum([]int{1, 1, 1}, 2)) //2
-	t.Log(subarraySum([]int{1, 2, 3}, 3)) //2
-	t.Log(subarraySum([]int{1}, 0))       //0
-
+	t.Log(subarraySum([]int{1, 1, 1}, 2))                          //2
+	t.Log(subarraySum([]int{1, 2, 3}, 3))                          //2
+	t.Log(subarraySum([]int{1}, 0))                                //0
+	t.Log(subarraySum([]int{1, 2, 2, -2, -2, -1, 1, 2, 2, -2}, 3)) //2
 }
 
 /**
@@ -52,10 +52,13 @@ func subarraySum(nums []int, k int) int {
 	preSum := 0
 
 	for i := 0; i < len(nums); i++ {
+		// 这是我们想找的前缀和 nums[0..j]
 		preSum += nums[i]
+		// 如果前面有这个前缀和，则直接更新答案
 		if hash[preSum-k] > 0 {
 			count += hash[preSum-k]
 		}
+		// 把前缀和 nums[0..i] 加入并记录出现次数
 		hash[preSum]++
 	}
 	return count
