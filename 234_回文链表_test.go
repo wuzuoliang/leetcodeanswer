@@ -35,9 +35,28 @@ https://www.bilibili.com/video/BV1eg411w7gn?p=17
 */
 
 func Test234(t *testing.T) {
-	t.Log(isPalindrome234(CreateNodeList([]int{1, 2, 2, 1}))) // true
-	t.Log(isPalindrome234(CreateNodeList([]int{1, 2})))       //false
+	t.Log(isPalindrome234Reverse(CreateNodeList([]int{1, 2, 2, 1}))) // true
+	t.Log(isPalindrome234Reverse(CreateNodeList([]int{1, 2})))       //false
+}
 
+var leftNode *ListNode
+
+func isPalindrome234Reverse(head *ListNode) bool {
+	leftNode = head
+	var isPalind func(head *ListNode) bool
+	isPalind = func(right *ListNode) bool {
+		if right == nil {
+			return true
+		}
+		res := isPalind(right.Next)
+		if res == false {
+			return false
+		}
+		res = res && right.Val == leftNode.Val
+		leftNode = leftNode.Next
+		return res
+	}
+	return isPalind(head)
 }
 
 func isPalindrome234(head *ListNode) bool {
