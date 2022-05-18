@@ -72,10 +72,8 @@ func combinationSum(candidates []int, target int) [][]int {
 			return
 		}
 		for i := start; i < len(candidates); i++ {
-			temp = append(temp, candidates[i])
 			//  关键点:不用i+1了，表示可以重复读取当前的数
-			dfs(i, temp, sum+candidates[i])
-			temp = temp[:len(temp)-1]
+			dfs(i, append(temp, candidates[i]), sum+candidates[i])
 		}
 	}
 	dfs(0, []int{}, 0)

@@ -113,6 +113,16 @@ func nextPermutation(nums []int) {
 }
 
 /**
+从后向前查找第一个相邻升序的元素对 (i,j)，满足 A[i] < A[j]。此时 [j,end) 必然是降序
+在 [j,end) 从后向前查找第一个满足 A[i] < A[k] 的 k。A[i]、A[k] 分别就是上文所说的「小数」、「大数」
+将 A[i] 与 A[k] 交换
+可以断定这时 [j,end) 必然是降序，逆置 [j,end)，使其升序
+如果在步骤 1 找不到符合的相邻元素对，说明当前 [begin,end) 为一个降序顺序，则直接跳到步骤 4
+
+作者：imageslr
+链接：https://leetcode.cn/problems/next-permutation/solution/xia-yi-ge-pai-lie-suan-fa-xiang-jie-si-lu-tui-dao-/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 func nextPermutation(nums []int)  {
     l := len(nums)
     i := l-2

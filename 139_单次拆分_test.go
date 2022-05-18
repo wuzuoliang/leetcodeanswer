@@ -51,26 +51,23 @@ func Test139(t *testing.T) {
 */
 
 func wordBreak(s string, wordDict []string) bool {
-	lens := len(s)
-	dp := make([]bool, lens+1)
+	wordDictSet := make(map[string]bool)
+	for _, w := range wordDict {
+		wordDictSet[w] = true
+	}
+	dp := make([]bool, len(s)+1)
 	dp[0] = true
-	for i := 1; i <= lens; i++ {
-		if dp[i-1] == false {
-			/* dp[i - 1]是false时, 是无法完成拆分的, 指针i跳到下一个index */
-			continue
-		}
-		/* 能执行到这, 说明子串s[0:i-1]都是能拆分的。遍历数组wordDict,
-		尝试从s中取出新的子串(这个子串的长度和当前循环的word相等, 即s[i-1:j]),
-		如果这个子串恰好与当前word相同, 那么子串s[0:j]也都是能拆分的。重复以上过程~ */
-		for _, w := range wordDict {
-			j := i - 1 + len(w)
-			if j <= lens && s[i-1:j] == w {
-				dp[j] = true
+	for i := 1; i <= len(s); i++ {
+		for j := 0; j < i; j++ {
+			if dp[j] && wordDictSet[s[j:i]] {
+				dp[i] = true
+				break
 			}
 		}
 	}
-	return dp[lens]
+	return dp[len(s)]
 }
+
 func canBreak(start int, s string, wordMap map[string]bool) bool {
 	if start == len(s) {
 		return true
