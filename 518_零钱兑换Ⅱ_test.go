@@ -57,6 +57,10 @@ func coinChange2(coins []int, amount int) int {
 		dp[i] = make([]int, amount+1)
 		dp[i][0] = 1
 	}
+	/**
+	如果求组合数就是外层for循环遍历物品，内层for遍历背包。
+	如果求排列数就是外层for遍历背包，内层for循环遍历物品。
+	*/
 	for i := 1; i <= n; i++ {
 		for j := 1; j <= amount; j++ {
 			if j-coins[i-1] >= 0 {

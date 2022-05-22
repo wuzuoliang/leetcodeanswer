@@ -37,11 +37,12 @@ strs[i]仅由'0' 和'1' 组成
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func Test474(t *testing.T) {
-
+	t.Log(findMaxForm([]string{"10", "0", "1"}, 1, 1))
 }
 
 func findMaxForm(strs []string, m int, n int) int {
 	// 定义数组
+	// dp[i][j]：最多有i个0和j个1的strs的最大子集的大小为dp[i][j]。
 	dp := make([][]int, m+1)
 	for i, _ := range dp {
 		dp[i] = make([]int, n+1)
@@ -54,9 +55,10 @@ func findMaxForm(strs []string, m int, n int) int {
 		for _, v := range strs[i] {
 			if v == '0' {
 				zeroNum++
+			} else {
+				oneNum++
 			}
 		}
-		oneNum = len(strs[i]) - zeroNum
 		// 从后往前 遍历背包容量
 		for j := m; j >= zeroNum; j-- {
 			for k := n; k >= oneNum; k-- {
@@ -64,7 +66,6 @@ func findMaxForm(strs []string, m int, n int) int {
 				dp[j][k] = Max(dp[j][k], dp[j-zeroNum][k-oneNum]+1)
 			}
 		}
-		//fmt.Println(dp)
 	}
 	return dp[m][n]
 }

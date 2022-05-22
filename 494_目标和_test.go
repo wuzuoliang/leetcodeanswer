@@ -43,8 +43,8 @@ import (
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func Test494(t *testing.T) {
-	t.Log(findTargetSumWaysDP([]int{1, 1, 1, 1, 1}, 3)) //5
-	t.Log(findTargetSumWaysDP([]int{1}, 1))             //1
+	t.Log(findTargetSumWays([]int{1, 1, 1, 1, 1}, 3)) //5
+	t.Log(findTargetSumWaysDP([]int{1}, 1))           //1
 }
 
 func findTargetSumWays(nums []int, target int) (count int) {
