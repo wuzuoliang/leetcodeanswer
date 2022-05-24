@@ -12,10 +12,11 @@ package Code
 */
 
 type Node struct {
-	Val   int
-	Left  *Node
-	Right *Node
-	Next  *Node
+	Val    int
+	Left   *Node
+	Right  *Node
+	Next   *Node
+	Random *Node
 }
 
 func connect(root *Node) *Node {
