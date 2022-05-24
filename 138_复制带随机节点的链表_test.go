@@ -45,5 +45,4 @@ func copyRandomList(head *Node) *Node {
 	} else {
 		return tmpNode
 	}
-	//return nil
 }
