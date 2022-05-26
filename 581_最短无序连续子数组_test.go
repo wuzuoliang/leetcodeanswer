@@ -44,6 +44,30 @@ func Test581(t *testing.T) {
 }
 
 // 只需要知道替换地方的最小ID，和最大ID就可以知道范围了
+// func getIntersectionNode(headA, headB *ListNode) *ListNode {
+//    if headA == nil || headB == nil {
+//        return nil
+//    }
+//    pa, pb := headA, headB
+//    for pa != pb {
+//        if pa == nil {
+//            pa = headB
+//        } else {
+//            pa = pa.Next
+//        }
+//        if pb == nil {
+//            pb = headA
+//        } else {
+//            pb = pb.Next
+//        }
+//    }
+//    return pa
+//}
+//
+//作者：LeetCode-Solution
+//链接：https://leetcode.cn/problems/intersection-of-two-linked-lists/solution/xiang-jiao-lian-biao-by-leetcode-solutio-a8jn/
+//来源：力扣（LeetCode）
+//著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 func findUnsortedSubarrayBest(nums []int) int {
 	min := nums[len(nums)-1]
 	max := nums[0]

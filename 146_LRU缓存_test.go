@@ -82,9 +82,6 @@ func (this *LRUCache) Get(key int) int {
 	value, ok := this.cache[key]
 	if ok {
 		this.cacheList.MoveToFront(value)
-		if value.Value.(*entry) == nil {
-			return -1
-		}
 		return value.Value.(*entry).value
 	} else {
 		return -1
