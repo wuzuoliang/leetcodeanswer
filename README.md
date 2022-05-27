@@ -64,9 +64,6 @@ func removeElements(head *ListNode, val int) *ListNode {
 	return dummyHead.Next
 }
 
-
-
-
 021_合并两个有序链表_test.go
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	head := &ListNode{}
@@ -227,6 +224,23 @@ func ReverseListKGroup(head *ListNode, k int) *ListNode {
 	// 递归反转后续链表并连接起来
 	a.Next = ReverseListKGroup(b, k)
 	return newHead
+}
+
+/** 反转区间 [a, b) 的元素，注意是左闭右开 */
+func ReverseListIterNode(a, b *ListNode) *ListNode {
+var pre, cur, nxt *ListNode
+pre = nil
+cur = a
+nxt = a
+//  终止的条件改一下就行了
+for cur != b {
+nxt = cur.Next
+cur.Next = pre
+pre = cur
+cur = nxt
+}
+// 返回反转后的头结点
+return pre
 }
 
 061_旋转链表_test.go
